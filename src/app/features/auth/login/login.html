@@ -1,0 +1,80 @@
+<div class="login-page">
+    <div class="login-visual">
+        <div class="visual-content">
+            <div class="floating-logo">▲</div>
+            <h1>Empowering Knowledge at Scale</h1>
+            <p>The OS for modern training agencies and educational giants.</p>
+        </div>
+        <div class="gradient-overlay"></div>
+    </div>
+
+    <div class="login-form-container">
+        <div class="form-card animate-fade-in">
+            <div class="brand">
+                <span class="logo-text">MicroLMS</span>
+            </div>
+
+            <div class="header">
+                <h2>Welcome Back</h2>
+                <p>Enter your credentials to access your dashboard</p>
+            </div>
+
+            <form (ngSubmit)="login()" #loginForm="ngForm">
+                <div class="form-group">
+                    <label>Workspace Email</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                                <rect width="20" height="14" x="2" y="5" rx="2" />
+                            </svg>
+                        </span>
+                        <input type="email" name="email" [(ngModel)]="credentials.email" placeholder="name@company.com"
+                            required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                            </svg>
+                        </span>
+                        <input type="password" name="password" [(ngModel)]="credentials.password" placeholder="••••••••"
+                            required>
+                    </div>
+                </div>
+
+                <div class="form-actions flex justify-between items-center mb-6">
+                    <label class="checkbox-container">
+                        <input type="checkbox" checked>
+                        <span class="checkmark"></span>
+                        <span class="text-xs">Remember me</span>
+                    </label>
+                    <a href="#" class="text-xs text-primary font-bold">Forgot password?</a>
+                </div>
+
+                <div class="error-msg mb-4" *ngIf="errorMessage">
+                    {{ errorMessage }}
+                </div>
+
+                <button type="submit" class="btn-login" [disabled]="isLoading || !loginForm.valid">
+                    <span *ngIf="!isLoading">Sign In</span>
+                    <span *ngIf="isLoading" class="loader"></span>
+                </button>
+            </form>
+
+            <div class="footer mt-8 text-center">
+                <p class="text-xs text-muted">Don't have a workspace? <a href="#" class="text-primary font-bold">Try for
+                        free</a></p>
+            </div>
+        </div>
+    </div>
+</div>

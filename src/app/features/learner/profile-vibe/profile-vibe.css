@@ -1,0 +1,158 @@
+.profile-vibe-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.profile-avatar.large {
+    width: 100px;
+    height: 100px;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2.5rem;
+    font-weight: 800;
+    box-shadow: var(--shadow-lg);
+}
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: var(--spacing-8);
+}
+
+@media (max-width: 960px) {
+    .profile-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Badges Grid */
+.badges-grid-full {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: var(--spacing-4);
+}
+
+.badge-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 16px;
+    background: var(--bg-main);
+    border-radius: var(--radius-lg);
+    transition: transform 0.2s;
+}
+
+.badge-card:hover {
+    transform: translateY(-5px);
+    background: var(--bg-card);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--primary-color);
+}
+
+.badge-icon-bg {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+}
+
+.badge-icon-bg.gold {
+    background: linear-gradient(135deg, #fef3c7, #fbbf24);
+    color: #92400e;
+}
+
+.badge-icon-bg.silver {
+    background: linear-gradient(135deg, #f1f5f9, #94a3b8);
+    color: #1e293b;
+}
+
+.badge-icon-bg.bronze {
+    background: linear-gradient(135deg, #fce7f3, #f472b6);
+    color: #9d174d;
+}
+
+.badge-name {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+/* Leaderboard Table Upgrade */
+.leaderboard-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.leaderboard-table th {
+    text-align: left;
+    padding: 12px;
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.leaderboard-table td {
+    padding: 12px;
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: middle;
+}
+
+.leaderboard-table tr.user-entry {
+    background: rgba(99, 102, 241, 0.05);
+}
+
+.member-cell {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.rank {
+    width: 28px;
+    font-size: 0.875rem;
+}
+
+.rank.top-3 {
+    color: var(--primary-color);
+    font-size: 1.125rem;
+}
+
+.entry-avatar {
+    width: 32px;
+    height: 32px;
+    background: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+}
+
+.xp-cell .xp {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+/* Skills Tree */
+.skill-bar-bg {
+    height: 8px;
+    background: var(--bg-main);
+    border-radius: 4px;
+}
+
+.skill-bar-fill {
+    height: 100%;
+    background: var(--primary-color);
+    border-radius: 4px;
+}

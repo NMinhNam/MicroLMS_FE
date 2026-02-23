@@ -1,0 +1,229 @@
+.builder-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Header Upgrades */
+.course-title-input {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 2px 0;
+    width: 60%;
+    color: var(--text-main);
+    transition: all 0.2s;
+}
+
+.course-title-input:focus {
+    outline: none;
+    border-bottom-color: var(--primary-color);
+}
+
+.badge-draft {
+    background: #fef3c7;
+    color: #92400e;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+/* Layout */
+.builder-layout {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 24px;
+    height: calc(100vh - 200px);
+}
+
+/* Curriculum Sidebar */
+.curriculum-sidebar {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    box-shadow: var(--shadow-sm);
+}
+
+.sidebar-header-premium {
+    padding: 20px;
+    background: var(--bg-main);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.module-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px;
+}
+
+.module-item-premium {
+    margin-bottom: 8px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+    transition: all 0.2s;
+}
+
+.module-item-premium.active {
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.05);
+}
+
+.module-header-premium {
+    padding: 14px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.module-title-edit {
+    background: transparent;
+    border: none;
+    width: 100%;
+    outline: none;
+    color: var(--text-main);
+}
+
+.arrow-icon {
+    font-size: 0.8rem;
+    transition: transform 0.3s;
+    color: #94a3b8;
+}
+
+.arrow-icon.open {
+    transform: rotate(90deg);
+    color: var(--primary-color);
+}
+
+.lesson-list-premium {
+    padding: 0 8px 12px;
+}
+
+.lesson-item-premium {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 12px;
+    margin-top: 4px;
+    border-radius: 8px;
+    background: var(--bg-main);
+    border: 1px solid transparent;
+    transition: all 0.2s;
+    cursor: grab;
+}
+
+.lesson-item-premium:hover {
+    background: white;
+    border-color: #e2e8f0;
+    transform: translateX(4px);
+}
+
+.lesson-title-edit {
+    background: transparent;
+    border: none;
+    width: 100%;
+    outline: none;
+    font-weight: 500;
+}
+
+.lesson-icon-box {
+    width: 28px;
+    height: 28px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    color: var(--text-main);
+}
+
+/* Action Buttons */
+.btn-premium-xs {
+    padding: 6px 12px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    border-radius: 8px;
+}
+
+.icon-btn-rounded {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    background: var(--bg-main);
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.icon-btn-rounded:hover {
+    background: #e2e8f0;
+}
+
+/* Empty/Placeholder States */
+.content-editor-premium {
+    background: var(--bg-card);
+    border-radius: 20px;
+    border: 2px dashed var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.empty-editor-vibe {
+    animation: floating 3s ease-in-out infinite;
+}
+
+@keyframes floating {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+.content-type-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 20px;
+    background: var(--bg-main);
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    width: 100px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.content-type-btn .icon {
+    font-size: 1.5rem;
+}
+
+.content-type-btn .label {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: #64748b;
+}
+
+.content-type-btn:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}

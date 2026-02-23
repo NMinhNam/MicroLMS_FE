@@ -1,0 +1,343 @@
+.branding-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Premium Buttons */
+.btn-outline-premium {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-weight: 700;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-outline-premium:hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+}
+
+.btn-primary-premium {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 12px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-primary-premium:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 20px -5px rgba(99, 102, 241, 0.4);
+}
+
+.btn-primary-premium:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+/* Layout Grid */
+.settings-layout-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+}
+
+/* Card Styling */
+.premium-card {
+    padding: var(--spacing-8);
+    background: var(--bg-card);
+    border-radius: 24px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
+}
+
+.card-header-premium {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: var(--spacing-8);
+}
+
+.icon-box {
+    width: 40px;
+    height: 40px;
+    background: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+}
+
+/* Form Controls */
+.form-group-premium label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+}
+
+.input-wrapper-premium input {
+    width: 100%;
+    padding: 14px 18px;
+    background: var(--bg-main);
+    color: var(--text-main);
+    border: 2px solid transparent;
+    border-radius: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.input-wrapper-premium input:focus {
+    background: white;
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+}
+
+.hint-text {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    margin-top: 8px;
+}
+
+/* Color Controls */
+.color-grid-premium {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.color-control {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px;
+    background: var(--bg-main);
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+}
+
+.color-blob {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    background: none;
+    padding: 0;
+}
+
+.color-blob::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+.color-blob::-webkit-color-swatch {
+    border-radius: 10px;
+    border: none;
+}
+
+.color-input-text {
+    display: flex;
+    align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.color-input-text input {
+    background: transparent;
+    border: none;
+    width: 80px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    outline: none;
+}
+
+/* Range Slider */
+.value-chip {
+    background: var(--primary-color);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 800;
+}
+
+.premium-range {
+    width: 100%;
+    accent-color: var(--primary-color);
+    height: 6px;
+    background: var(--border-color);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.range-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+}
+
+/* Device Preview */
+.preview-sticky {
+    position: sticky;
+    top: 20px;
+}
+
+.preview-header-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 0 10px;
+}
+
+.live-blink {
+    width: 8px;
+    height: 8px;
+    background: #22c55e;
+    border-radius: 50%;
+    animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.4;
+        transform: scale(1.2);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.preview-device-frame {
+    background: #0f172a;
+    padding: 12px;
+    border: 4px solid #1e293b;
+}
+
+.preview-window-inner {
+    background: white;
+    height: 520px;
+    display: flex;
+    overflow: hidden;
+}
+
+.mock-sidebar-ui {
+    width: 60px;
+    border-right: 1px solid #f1f5f9;
+    display: flex;
+    flex-direction: column;
+    padding: 12px 8px;
+    flex-shrink: 0;
+}
+
+.mock-ui-logo {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mock-ui-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.mock-ui-item {
+    width: 100%;
+    height: 28px;
+    background: #f8fafc;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.mock-ui-item .dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+}
+
+.mock-main-ui {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.mock-navbar-ui {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    border-bottom: 1px solid #f8fafc;
+}
+
+.mock-ui-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.mock-ui-card {
+    background: white;
+    padding: 10px;
+    border: 1px solid #f1f5f9;
+}
+
+.mock-ui-btn {
+    width: 100%;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 0.7rem;
+    font-weight: 800;
+}
+
+.preview-caption {
+    text-align: center;
+    color: #94a3b8;
+    font-size: 0.75rem;
+    margin-top: 20px;
+    padding: 0 40px;
+}
+
+@media (max-width: 1024px) {
+    .settings-layout-grid {
+        grid-template-columns: 1fr;
+    }
+}

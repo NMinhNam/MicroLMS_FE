@@ -1,0 +1,180 @@
+<div class="profile-vibe-container animate-fade-in">
+    <!-- Profile Header -->
+    <div class="card profile-header-card mb-8">
+        <div class="flex items-center gap-8">
+            <div class="profile-avatar large" [style.background]="'var(--primary-color)'">
+                <span>AR</span>
+            </div>
+            <div class="flex-1">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <h1 class="text-2xl font-bold">{{ user.name }}</h1>
+                        <p class="text-muted">{{ user.handle }}</p>
+                    </div>
+                    <button class="btn btn-outline btn-sm">Edit Profile</button>
+                </div>
+
+                <div class="xp-progress-section">
+                    <div class="flex justify-between text-sm mb-2">
+                        <span class="font-bold text-primary">Level {{ user.level }}</span>
+                        <span class="text-muted">{{ user.xp }} / {{ user.nextLevelXp }} XP</span>
+                    </div>
+                    <div class="progress-bar-bg h-3">
+                        <div class="progress-bar-fill" [style.width.%]="(user.xp / user.nextLevelXp) * 100"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="profile-grid">
+        <!-- Left Column: Badges & Skills -->
+        <div class="flex flex-col gap-6">
+            <div class="card">
+                <h3 class="font-bold mb-6 flex justify-between items-center">
+                    <span>Badges Won</span>
+                    <span class="badge badge-sm">{{ user.badgesCount }} Total</span>
+                </h3>
+                <div class="badges-grid-full">
+                    <div class="badge-card" *ngFor="let badge of badges">
+                        <div class="badge-icon-bg" [class]="badge.color">
+                            <span class="icon">
+                                <ng-container [ngSwitch]="badge.icon">
+                                    <svg *ngSwitchCase="'🌅'" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M12 2v2" />
+                                        <path d="m4.93 4.93 1.41 1.41" />
+                                        <path d="M20 12h2" />
+                                        <path d="m19.07 4.93-1.41 1.41" />
+                                        <path d="M15.947 12.65a4 4 0 0 0-7.892 0" />
+                                        <path d="M3 20h18" />
+                                        <path
+                                            d="m21.22 15.89-1.28 1.27c-.42.42-.64.63-.81.88-.13.2-.23.41-.31.63-.09.28-.12.52-.12.93" />
+                                        <path
+                                            d="m2.78 15.89 1.28 1.27c.42.42.64.63.81.88.13.2.23.41.31.63.09.28.12.52.12.93" />
+                                    </svg>
+                                    <svg *ngSwitchCase="'🧠'" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <path
+                                            d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-2.54Z" />
+                                        <path
+                                            d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-2.54Z" />
+                                    </svg>
+                                    <svg *ngSwitchCase="'🔥'" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <path
+                                            d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.5 4 6.5 2 2 3 5.5 3 8.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z" />
+                                    </svg>
+                                    <svg *ngSwitchCase="'🥷'" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <path
+                                            d="M2 10a4 4 0 0 1 4-4h12a4 4 0 0 1 4 4v2a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4v-2Z" />
+                                        <path d="M9 14.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
+                                        <path d="M15 14.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
+                                        <path d="M2 10h20" />
+                                        <path d="M12 16v5" />
+                                        <path d="m15 21-1-4" />
+                                        <path d="m9 21 1-4" />
+                                    </svg>
+                                </ng-container>
+                            </span>
+                        </div>
+                        <span class="badge-name">{{ badge.title }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 class="font-bold mb-4">Skill Tree</h3>
+                <div class="skills-vibe flex flex-col gap-3">
+                    <div class="skill-item">
+                        <div class="flex justify-between text-xs mb-1">
+                            <span>Frontend Architecture</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill" style="width: 85%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="flex justify-between text-xs mb-1">
+                            <span>Clean Code</span>
+                            <span>92%</span>
+                        </div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill" style="width: 92%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column: Leaderboard -->
+        <div class="card leaderboard-card">
+            <h3 class="font-bold mb-6">Global Leaderboard</h3>
+            <div class="table-container">
+                <table class="leaderboard-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>User</th>
+                            <th>XP</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let entry of leaderboard" [class.user-entry]="entry.isUser">
+                            <td class="rank-cell">
+                                <span class="rank font-bold" [class.top-3]="entry.rank <= 3">#{{ entry.rank }}</span>
+                            </td>
+                            <td>
+                                <div class="member-cell">
+                                    <div class="entry-avatar">{{ entry.avatar }}</div>
+                                    <span class="name font-bold">{{ entry.name }}</span>
+                                </div>
+                            </td>
+                            <td class="xp-cell">
+                                <span class="xp">{{ entry.xp }} XP</span>
+                            </td>
+                            <td class="trophy-cell">
+                                <span class="trophy" *ngIf="entry.rank === 1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                        fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="inline-block">
+                                        <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+                                        <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+                                        <path d="M4 22h16" />
+                                        <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+                                        <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
+                                        <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+                                    </svg>
+                                </span>
+                                <span class="trophy" *ngIf="entry.rank === 2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                        fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="inline-block">
+                                        <circle cx="12" cy="8" r="6" />
+                                        <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" />
+                                    </svg>
+                                </span>
+                                <span class="trophy" *ngIf="entry.rank === 3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                        fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="inline-block">
+                                        <circle cx="12" cy="8" r="6" />
+                                        <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" />
+                                    </svg>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <button class="btn btn-outline w-full mt-6 text-sm">View Full Rankings</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,287 @@
+<div class="tenants-container animate-fade-in">
+    <!-- Page Header & Global Stats -->
+    <div class="flex justify-between items-end mb-10">
+        <div>
+            <div class="flex items-center gap-3 mb-2">
+                <div class="w-2 h-8 bg-primary rounded-full"></div>
+                <h1 class="text-4xl font-black tracking-tighter">Tenant Sovereignty</h1>
+            </div>
+            <p class="text-muted text-lg font-medium">Orchestrating independent learning ecosystems at scale.</p>
+        </div>
+        <button class="btn-provision font-black" (click)="toggleModal()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg>
+            Provision New Ecosystem
+        </button>
+    </div>
+
+    <!-- Stats Snapshot -->
+    <div class="stats-grid">
+        <div class="stat-card-premium" *ngFor="let stat of stats">
+            <div class="stat-vibe">
+                <span class="label">{{ stat.label }}</span>
+                <span class="value">{{ stat.value }}</span>
+                <span class="trend" [class.up]="stat.trend.startsWith('+')" [class.down]="stat.trend.startsWith('-')"
+                    [class.stable]="stat.trend === 'Stable'">
+                    {{ stat.trend }} vs last month
+                </span>
+            </div>
+            <div class="stat-icon">
+                <ng-container [ngSwitch]="stat.icon">
+                    <svg *ngSwitchCase="'🌐'" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="2" y1="12" x2="22" y2="12"></line>
+                        <path
+                            d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                        </path>
+                    </svg>
+                    <svg *ngSwitchCase="'⚡'" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                    </svg>
+                    <svg *ngSwitchCase="'💾'" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                        <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                        <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                    </svg>
+                    <svg *ngSwitchCase="'💎'" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                    </svg>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+
+    <!-- Command Toolbar -->
+    <div class="toolbar-vibe">
+        <div class="search-nexus">
+            <span class="nexus-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </span>
+            <input type="text" [(ngModel)]="searchQuery" placeholder="Filter ecosystems, domains, or regions...">
+        </div>
+
+        <div class="filter-nexus">
+            <select [(ngModel)]="selectedStatus" class="select-premium">
+                <option value="All">All Health Status</option>
+                <option value="Active">Active Nodes</option>
+                <option value="Warning">Critical Alerts</option>
+                <option value="Inactive">Decommissioned</option>
+            </select>
+            <button class="icon-btn-sm" title="Refresh Matrix">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="23 4 23 10 17 10"></polyline>
+                    <polyline points="1 20 1 14 7 14"></polyline>
+                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Ecosystem Explorer Table -->
+    <div class="tenants-list-card">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ECOSYSTEM NODE</th>
+                    <th>TOPOLOGY / REGION</th>
+                    <th>POPULATION</th>
+                    <th>HEALTH SCORE</th>
+                    <th>STATUS</th>
+                    <th class="text-right">OPERATIONS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let tenant of filteredTenants" class="table-row">
+                    <td>
+                        <div class="agency-cell">
+                            <div class="agency-avatar">{{ tenant.name.charAt(0) }}</div>
+                            <div>
+                                <span class="block font-black text-slate-800">{{ tenant.name }}</span>
+                                <code class="node-link mt-1 block">{{ tenant.domain }}</code>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="flex flex-col">
+                            <span class="text-[10px] font-black uppercase text-muted tracking-widest mb-1">AWS
+                                Cluster</span>
+                            <span class="font-bold text-xs text-slate-600">{{ tenant.region || 'global-cdn-1' }}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="flex flex-col">
+                            <span class="font-black text-base">{{ tenant.students | number }}</span>
+                            <span class="text-[10px] font-bold text-muted uppercase">Active Minds</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="flex flex-col">
+                            <div class="flex justify-between items-end mb-1">
+                                <span class="font-black text-xs">{{ tenant.health || 0 }}%</span>
+                            </div>
+                            <div class="health-meter">
+                                <div class="health-fill" [class.excellent]="tenant.health >= 90"
+                                    [class.good]="tenant.health >= 70 && tenant.health < 90"
+                                    [class.warning]="tenant.health >= 40 && tenant.health < 70"
+                                    [class.critical]="tenant.health < 40" [style.width.%]="tenant.health"></div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="status-pill" [class]="tenant.status.toLowerCase()">
+                            <span class="dot-indicator"></span>
+                            {{ tenant.status }}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="flex justify-end gap-3">
+                            <button class="icon-btn-sm" title="System Config">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                    <path
+                                        d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                                    </path>
+                                </svg>
+                            </button>
+                            <button class="icon-btn-sm" title="Switch Node" (click)="toggleTenantStatus(tenant)">
+                                <svg *ngIf="tenant.status === 'Active'" xmlns="http://www.w3.org/2000/svg" width="16"
+                                    height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="6" y="4" width="4" height="16"></rect>
+                                    <rect x="14" y="4" width="4" height="16"></rect>
+                                </svg>
+                                <svg *ngIf="tenant.status !== 'Active'" xmlns="http://www.w3.org/2000/svg" width="16"
+                                    height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                </svg>
+                            </button>
+                            <button class="icon-btn-sm text-red-500" title="Decommission"
+                                (click)="deleteTenant(tenant)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                    <path
+                                        d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                                    </path>
+                                    <line x1="10" y1="11" x2="10" y2="17"></line>
+                                    <line x1="14" y1="11" x2="14" y2="17"></line>
+                                </svg>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                <tr *ngIf="filteredTenants.length === 0">
+                    <td colspan="6" class="text-center py-20">
+                        <div class="text-4xl mb-4">🛸</div>
+                        <h3 class="font-black text-xl text-slate-800">No Ecosystems Detected</h3>
+                        <p class="text-muted">Adjust your search parameters to find the missing nodes.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Provisioning Warp Drive (Modal) -->
+    <div class="modal-overlay" *ngIf="showCreateModal">
+        <div class="modal-card animate-scale-up">
+            <div class="p-8 pb-0 flex justify-between items-start">
+                <div>
+                    <h2 class="text-2xl font-black tracking-tight">Ecosystem Genesis</h2>
+                    <p class="text-muted font-medium mt-1">Spinning up a dedicated micro-LMS cluster.</p>
+                </div>
+                <button class="icon-btn-sm" (click)="toggleModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="p-8" *ngIf="!isDeploying && logs.length === 0">
+                <div class="grid grid-cols-2 gap-6 mb-8">
+                    <div class="form-group">
+                        <label
+                            class="text-[10px] uppercase font-black tracking-widest text-muted mb-2 block">Organization
+                            Blueprint</label>
+                        <input type="text" [(ngModel)]="newTenant.name" placeholder="Entity Name..."
+                            class="select-premium w-full text-base">
+                    </div>
+                    <div class="form-group">
+                        <label class="text-[10px] uppercase font-black tracking-widest text-muted mb-2 block">Corespace
+                            Subdomain</label>
+                        <div class="flex items-center gap-2">
+                            <input type="text" [(ngModel)]="newTenant.subdomain" placeholder="slug..."
+                                class="select-premium w-full text-base">
+                            <span class="font-black text-slate-400 text-sm">.lms.io</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-indigo-50 border border-indigo-100 mb-8">
+                    <div class="flex gap-4">
+                        <div class="text-2xl">⚡</div>
+                        <div>
+                            <h4 class="font-black text-indigo-900 text-sm">Auto-Provisioning Enabled</h4>
+                            <p class="text-indigo-700 text-xs mt-1 leading-relaxed">This will initialize a dedicated DB
+                                schema, S3 storage buckets, and generate a secure admin gateway automatically.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-end gap-3 border-t pt-8">
+                    <button class="btn-hero-glass !text-slate-600 !border-slate-200"
+                        (click)="toggleModal()">Abort</button>
+                    <button class="btn-provision" (click)="createTenant()"
+                        [disabled]="!newTenant.name || !newTenant.subdomain">
+                        Initiate Sequence
+                    </button>
+                </div>
+            </div>
+
+            <!-- Deployment Warp View -->
+            <div class="terminal-vibe" *ngIf="isDeploying || logs.length > 0">
+                <div class="terminal-header">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                    <span class="ml-2 text-[10px] text-slate-500 font-bold uppercase tracking-widest">Platform Core
+                        Runtime</span>
+                </div>
+                <div class="terminal-body custom-scrollbar h-[300px] overflow-y-auto pr-4">
+                    <div class="log-entry flex gap-3" *ngFor="let log of logs; let last = last" [class.last-log]="last"
+                        [class.success]="log.includes('SUCCESS')" [class.info]="log.includes('Initializing')">
+                        <span class="opacity-30 tracking-tighter">[{{ log.split(']')[0].replace('[','') }}]</span>
+                        <span>{{ log.split(']')[1] }}</span>
+                    </div>
+                    <div class="log-entry flex gap-3" *ngIf="isDeploying">
+                        <span class="opacity-30 tracking-tighter">»</span>
+                        <span class="animate-pulse">Awaiting kernel response...</span>
+                    </div>
+                </div>
+                <div class="p-8 border-t border-white/10 flex justify-end" *ngIf="!isDeploying">
+                    <button class="btn-provision !shadow-none" (click)="toggleModal()">Accept & Finalize</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

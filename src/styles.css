@@ -1,0 +1,204 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import "@ng-select/ng-select/themes/default.theme.css";
+@import "plyr/dist/plyr.css";
+
+:root {
+  /* Brand Colors */
+  --primary-color: #6366f1;
+  /* Indigo 500 */
+  --primary-hover: #4f46e5;
+  /* Indigo 600 */
+  --secondary-color: #10b981;
+  /* Emerald 500 */
+
+  /* Light Theme (Default) */
+  --bg-main: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-sidebar: #ffffff;
+  --text-main: #0f172a;
+  --text-primary: #1e293b;
+  --text-muted: #64748b;
+  --border-color: #f1f5f9;
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.3);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+  /* Border Radius */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+  --radius-full: 9999px;
+
+  /* Spacing */
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  --spacing-12: 3rem;
+}
+
+/* Dark Theme Overrides */
+[data-theme='dark'] {
+  --bg-main: #020617;
+  /* slate-950 */
+  --bg-card: #0f172a;
+  /* slate-900 */
+  --bg-sidebar: #0f172a;
+  --text-main: #f8fafc;
+  --text-primary: #f1f5f9;
+  --text-muted: #94a3b8;
+  --border-color: #1e293b;
+  --glass-bg: rgba(15, 23, 42, 0.7);
+  --glass-border: rgba(30, 41, 59, 0.5);
+
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
+}
+
+/* Ng-Select Dark Mode Core Refinement */
+[data-theme='dark'] .ng-dropdown-panel {
+  background-color: var(--bg-card) !important;
+  border-color: var(--border-color) !important;
+}
+
+[data-theme='dark'] .ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
+  background-color: var(--bg-card) !important;
+  color: var(--text-main) !important;
+}
+
+[data-theme='dark'] .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-marked {
+  background-color: var(--border-color) !important;
+}
+
+[data-theme='dark'] .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected {
+  background-color: var(--primary-color) !important;
+  color: white !important;
+}
+
+[data-theme='dark'] .ng-select .ng-select-container {
+  background-color: var(--bg-card) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-main) !important;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Utility Classes */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-6);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-2) var(--spacing-4);
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+  font-size: 0.875rem;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border-color: var(--border-color);
+  color: var(--text-main);
+}
+
+.btn-outline:hover {
+  background-color: var(--bg-main);
+  border-color: var(--text-muted);
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.gap-2 {
+  gap: var(--spacing-2);
+}
+
+.gap-4 {
+  gap: var(--spacing-4);
+}
+
+/* Animation Utils */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}

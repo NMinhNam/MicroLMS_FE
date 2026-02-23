@@ -1,0 +1,143 @@
+<div class="plans-container animate-fade-in">
+    <!-- Page Header -->
+    <div class="page-header flex justify-between items-center mb-8">
+        <div>
+            <h1 class="font-bold">Subscription Plans</h1>
+            <p class="text-muted">Global monetization strategy and active subscription monitoring.</p>
+        </div>
+        <button class="btn btn-primary" (click)="refreshStats()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            Create New Tier
+        </button>
+    </div>
+
+    <!-- Plans Grid -->
+    <div class="plans-grid">
+        <div class="plan-card" *ngFor="let plan of plans" [class.popular]="plan.isPopular">
+            <div class="popular-badge" *ngIf="plan.isPopular">MOST POPULAR</div>
+
+            <div class="plan-header">
+                <h2 class="font-bold">{{ plan.name }}</h2>
+                <div class="price-container">
+                    <span class="currency">$</span>
+                    <span class="price">{{ plan.price }}</span>
+                    <span class="period">/mo</span>
+                </div>
+            </div>
+
+            <div class="plan-stats">
+                <div class="stat-item">
+                    <span class="stat-label">Active Tenants</span>
+                    <span class="stat-value">{{ plan.activeTenants }}</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Total Revenue</span>
+                    <span class="stat-value">{{ plan.revenue | currency:'USD':'symbol':'1.0-0' }}</span>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <ul class="feature-list">
+                <li class="feature-item">
+                    <span class="check">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </span>
+                    <span>Up to <strong>{{ plan.students }}</strong> Students</span>
+                </li>
+                <li class="feature-item">
+                    <span class="check">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </span>
+                    <span><strong>{{ plan.storage }}</strong> Storage</span>
+                </li>
+                <li class="feature-item" *ngFor="let feat of plan.features">
+                    <span class="check">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </span>
+                    <span>{{ feat }}</span>
+                </li>
+            </ul>
+
+            <div class="plan-actions">
+                <button class="btn btn-primary w-full" (click)="editPlan(plan)">Edit Strategy</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Revenue Insights -->
+    <div class="card revenue-card mt-8">
+        <div class="flex justify-between items-center mb-6">
+            <div>
+                <h3 class="font-bold">Revenue Distribution</h3>
+                <p class="text-muted text-sm">Monthly recurring revenue split by plan type.</p>
+            </div>
+            <button class="btn btn-outline btn-sm" (click)="refreshStats()">Refresh Insights</button>
+        </div>
+        <div class="chart-container">
+            <!-- Mock Chart Visualization -->
+            <div class="mock-bar-chart">
+                <div class="chart-bar free" [style.height.%]="(plans[0].revenue / 5000) * 100"
+                    [title]="'Free: ' + (plans[0].revenue | currency)"></div>
+                <div class="chart-bar pro" [style.height.%]="(plans[1].revenue / 5000) * 100"
+                    [title]="'Pro: ' + (plans[1].revenue | currency)"></div>
+                <div class="chart-bar enterprise" [style.height.%]="(plans[2].revenue / 5000) * 100"
+                    [title]="'Enterprise: ' + (plans[2].revenue | currency)"></div>
+            </div>
+            <div class="chart-labels flex justify-around mt-4">
+                <span>Free</span>
+                <span>Pro</span>
+                <span>Enterprise</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Plan Modal -->
+    <div class="modal-overlay" *ngIf="showEditModal">
+        <div class="modal-card animate-fade-in">
+            <div class="modal-header flex justify-between items-center">
+                <h2 class="font-bold">Edit {{ editingPlan?.name }} Strategy</h2>
+                <button class="close-btn" (click)="closeModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body" *ngIf="editingPlan">
+                <div class="form-group mb-4">
+                    <label>Monthly Price ($)</label>
+                    <input type="number" [(ngModel)]="editingPlan.price" class="form-control">
+                </div>
+                <div class="form-group mb-4">
+                    <label>Student Limit</label>
+                    <input type="text" [(ngModel)]="editingPlan.students" class="form-control">
+                </div>
+                <div class="form-group mb-4">
+                    <label>Storage Quota</label>
+                    <input type="text" [(ngModel)]="editingPlan.storage" class="form-control">
+                </div>
+                <div class="form-footer flex justify-end gap-2 mt-6">
+                    <button class="btn btn-outline" (click)="closeModal()">Cancel</button>
+                    <button class="btn btn-primary" (click)="savePlan()" [disabled]="isSaving">
+                        {{ isSaving ? 'Saving...' : 'Apply Changes' }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

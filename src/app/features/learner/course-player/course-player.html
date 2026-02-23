@@ -1,0 +1,190 @@
+<div class="player-container [data-theme='dark']" [class.sidebar-closed]="!isSidebarOpen">
+    <!-- Premium Cinema Header -->
+    <header class="player-header">
+        <div class="header-left">
+            <button class="btn-back-vibe" (click)="goBack()" title="Leave Classroom">
+                <span class="back-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </span>
+            </button>
+            <div class="lesson-breadcrumbs">
+                <span class="module-chip">{{ currentLesson.module }}</span>
+                <h1 class="lesson-major-title">{{ currentLesson.title }}</h1>
+            </div>
+        </div>
+
+        <div class="header-right">
+            <div class="course-mastery hidden md:flex">
+                <div class="mastery-text">
+                    <span class="label">Course Mastery</span>
+                    <span class="value">42% Complete</span>
+                </div>
+                <div class="mastery-track">
+                    <div class="mastery-fill" style="width: 42%;"></div>
+                </div>
+            </div>
+            <button class="btn-content-toggle" (click)="toggleSidebar()">
+                <span class="toggle-icon">
+                    <svg *ngIf="isSidebarOpen" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <rect width="18" height="18" x="3" y="3" rx="2" />
+                        <path d="M15 3v18" />
+                    </svg>
+                    <svg *ngIf="!isSidebarOpen" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <rect width="18" height="18" x="3" y="3" rx="2" />
+                        <path d="M9 3v18" />
+                    </svg>
+                </span>
+                <span class="toggle-text">{{ isSidebarOpen ? 'Hide' : 'Content' }}</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="player-stage">
+        <!-- Cinema Screen Area -->
+        <div class="cinema-core">
+            <div class="video-vault">
+                <video #videoPlayer playsinline controls [poster]="currentLesson.poster">
+                    <source [src]="currentLesson.videoUrl" type="video/mp4" />
+                </video>
+            </div>
+
+            <div class="lesson-interaction-space">
+                <div class="interaction-tabs">
+                    <button class="vibe-tab" [class.active]="activeTab === 'overview'" (click)="setTab('overview')">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="mr-2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <polyline points="10 9 9 9 8 9"></polyline>
+                        </svg>
+                        Lesson Notes
+                    </button>
+                    <button class="vibe-tab" [class.active]="activeTab === 'resources'" (click)="setTab('resources')">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="mr-2">
+                            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z">
+                            </path>
+                        </svg>
+                        Assets
+                    </button>
+                    <button class="vibe-tab" [class.active]="activeTab === 'qa'" (click)="setTab('qa')">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="mr-2">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                        Discussion
+                    </button>
+                </div>
+
+                <div class="vibe-tab-content p-10" [ngSwitch]="activeTab">
+                    <div *ngSwitchCase="'overview'" class="animate-fade-up">
+                        <div class="flex justify-between items-start mb-6">
+                            <div>
+                                <h3 class="text-2xl font-black mb-2">Architectural Blueprint</h3>
+                                <p class="text-muted max-w-2xl">
+                                    Deep dive into high-performance system design. Today we cover horizontal scaling and
+                                    the stateless advantage.
+                                </p>
+                            </div>
+                            <button class="btn-complete-vibe" (click)="markAsComplete()">
+                                Mark Lesson as Mastered
+                            </button>
+                        </div>
+                        <div class="lesson-tags flex gap-3">
+                            <span class="pill">#Architecture</span>
+                            <span class="pill">#Scalability</span>
+                            <span class="pill">#Advanced</span>
+                        </div>
+                    </div>
+
+                    <div *ngSwitchCase="'resources'" class="animate-fade-up">
+                        <div class="resource-grid">
+                            <div class="resource-item">
+                                <span class="res-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                        <polyline points="14 2 14 8 20 8"></polyline>
+                                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                                        <polyline points="10 9 9 9 8 9"></polyline>
+                                    </svg>
+                                </span>
+                                <div class="res-info">
+                                    <span class="res-name">System_Design_v2.pdf</span>
+                                    <span class="res-meta">Portable Document • 1.2MB</span>
+                                </div>
+                                <button class="btn-res-download">Get File</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngSwitchCase="'qa'" class="animate-fade-up">
+                        <div class="empty-qa text-center py-10">
+                            <div class="qa-visual">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                            </div>
+                            <h4 class="font-bold mb-2">No active discussions</h4>
+                            <p class="text-muted mb-6">Be the first to spark a conversation about this lesson.</p>
+                            <button class="btn-ask-vibe">Post a Question</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Intelligent Curriculum Sidebar -->
+        <aside class="curriculum-vault" *ngIf="isSidebarOpen">
+            <div class="vault-header">
+                <h3 class="font-black">Curriculum Map</h3>
+                <span class="lesson-count">4 Lessons</span>
+            </div>
+            <div class="vault-scroll">
+                <div class="vault-section" *ngFor="let mod of curriculum">
+                    <div class="section-title">{{ mod.title }}</div>
+                    <div class="lesson-cluster">
+                        <div class="lesson-vibe-item" *ngFor="let les of mod.lessons"
+                            [class.active]="les.id === currentLesson.id" [class.done]="les.completed"
+                            (click)="selectLesson(les)">
+                            <div class="vibe-status">
+                                <div class="inner-dot"></div>
+                            </div>
+                            <div class="vibe-info">
+                                <span class="vibe-title">{{ les.title }}</span>
+                                <div class="vibe-meta">
+                                    <span class="vibe-type">Video</span>
+                                    <span class="vibe-duration">{{ les.duration }}</span>
+                                </div>
+                            </div>
+                            <div class="vibe-check" *ngIf="les.completed">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </main>
+</div>

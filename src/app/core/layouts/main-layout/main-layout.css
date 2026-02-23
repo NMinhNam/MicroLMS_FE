@@ -1,0 +1,23 @@
+.layout-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+.content-container {
+    flex: 1;
+    margin-left: 280px;
+    /* Synchronized with sidebar width */
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    background-color: var(--bg-main);
+    transition: background-color 0.3s;
+}
+
+.main-content {
+    padding: var(--spacing-8);
+    flex: 1;
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+}

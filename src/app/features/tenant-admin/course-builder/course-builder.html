@@ -1,0 +1,223 @@
+<div class="builder-container animate-fade-in">
+    <!-- Builder Header -->
+    <div class="builder-header flex justify-between items-end mb-10">
+        <div>
+            <div class="flex items-center gap-4 mb-2">
+                <input type="text" [(ngModel)]="course.title"
+                    class="course-title-input font-black text-4xl tracking-tight">
+                <div class="badge-draft shadow-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                        class="mr-1">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                    </svg>
+                    {{ course.status }}
+                </div>
+            </div>
+            <p class="text-muted text-lg">{{ course.description }}</p>
+        </div>
+        <div class="flex gap-3">
+            <button class="btn btn-outline-premium">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                    <circle cx="12" cy="12" r="3" />
+                </svg>
+                Student Preview
+            </button>
+            <button class="btn btn-primary-premium shadow-xl shadow-primary/20" (click)="publishCourse()"
+                [disabled]="course.status === 'Published'">
+                <svg *ngIf="course.status === 'Published'" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                    stroke-linejoin="round" class="mr-2">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <svg *ngIf="course.status !== 'Published'" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                    stroke-linejoin="round" class="mr-2">
+                    <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z">
+                    </path>
+                    <path
+                        d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z">
+                    </path>
+                    <path d="M9 12H4s.55-3.03 2-5c1.62-2.2 5-3 5-3"></path>
+                    <path d="M12 15v5s3.03-.55 5-2c2.2-1.62 3-5 3-5"></path>
+                </svg>
+                {{ course.status === 'Published' ? 'Course is Live' : 'Go Live Now' }}
+            </button>
+        </div>
+    </div>
+
+    <div class="builder-layout">
+        <!-- Curriculum Sidebar -->
+        <aside class="curriculum-sidebar">
+            <div class="sidebar-header-premium flex justify-between items-center">
+                <div>
+                    <h3 class="font-black tracking-tight">Structured Roadmap</h3>
+                    <p class="text-[10px] uppercase font-black text-muted tracking-widest mt-0.5">{{ modules.length
+                        }} Modules Organized</p>
+                </div>
+                <button class="btn btn-primary btn-premium-xs shadow-lg shadow-primary/10" (click)="addModule()">+ New
+                    Module</button>
+            </div>
+
+            <div class="module-list custom-scrollbar">
+                <div class="module-item-premium" *ngFor="let module of modules; let i = index"
+                    [class.active]="module.isOpen">
+                    <div class="module-header-premium" (click)="toggleModule(module)">
+                        <div class="flex items-center gap-3 flex-1 overflow-hidden">
+                            <span class="arrow-icon" [class.open]="module.isOpen">❯</span>
+                            <div class="flex-1 overflow-hidden">
+                                <input type="text" [(ngModel)]="module.title" (click)="$event.stopPropagation()"
+                                    class="module-title-edit font-bold text-sm truncate">
+                            </div>
+                        </div>
+                        <div class="module-actions flex gap-1" (click)="$event.stopPropagation()">
+                            <button class="icon-btn-rounded" (click)="addLesson(module)" title="New Lesson">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                            </button>
+                            <button class="icon-btn-rounded hover:text-red-500" (click)="deleteModule(i)"
+                                title="Purge Module">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                    <path
+                                        d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="lesson-list-premium" *ngIf="module.isOpen">
+                        <div class="lesson-item-premium" *ngFor="let lesson of module.lessons; let li = index">
+                            <div class="flex items-center gap-3 flex-1 overflow-hidden">
+                                <div class="lesson-icon-box">
+                                    <ng-container [ngSwitch]="lesson.type">
+                                        <svg *ngSwitchCase="'video'" xmlns="http://www.w3.org/2000/svg" width="14"
+                                            height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+                                            <path d="m15 8-5 4 5 4V8z" />
+                                        </svg>
+                                        <svg *ngSwitchCase="'quiz'" xmlns="http://www.w3.org/2000/svg" width="14"
+                                            height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="12" cy="12" r="10" />
+                                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                                            <line x1="12" y1="17" x2="12.01" y2="17" />
+                                        </svg>
+                                        <svg *ngSwitchCase="'document'" xmlns="http://www.w3.org/2000/svg" width="14"
+                                            height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path
+                                                d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+                                            <polyline points="14.5 2 14.5 8 20 8" />
+                                        </svg>
+                                        <svg *ngSwitchDefault xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                                        </svg>
+                                    </ng-container>
+                                </div>
+                                <input type="text" [(ngModel)]="lesson.title" class="lesson-title-edit text-xs">
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-[10px] font-black text-muted uppercase">{{ lesson.duration
+                                    }}</span>
+                                <button class="icon-btn-rounded !bg-transparent text-muted hover:text-red-500"
+                                    (click)="deleteLesson(module, li)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <button
+                            class="w-full py-2 mt-2 text-[10px] font-black text-primary uppercase tracking-widest hover:bg-primary/5 rounded-lg transition-colors border border-dashed border-primary/20"
+                            (click)="addLesson(module)">
+                            + Insert Dynamic Content
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Editor Placeholder -->
+        <main class="content-editor-premium">
+            <div class="text-center">
+                <div class="empty-editor-vibe mb-8 flex justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                        class="text-slate-300">
+                        <rect x="3" y="3" width="18" height="18" rx="2" />
+                        <path d="M9 3v18" />
+                        <path d="m15 8-5 4 5 4V8z" />
+                    </svg>
+                </div>
+                <h2 class="font-black text-2xl tracking-tight mb-2">Curriculum Architect</h2>
+                <p class="text-muted max-w-sm mx-auto mb-10">Select a lesson node to begin crafting the cinematic
+                    learning experience. Deploy interactive components below.</p>
+
+                <div class="flex gap-4 justify-center">
+                    <button class="content-type-btn">
+                        <span class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+                                <path d="m15 8-5 4 5 4V8z" />
+                            </svg>
+                        </span>
+                        <span class="label uppercase tracking-widest text-[9px]">HD Video</span>
+                    </button>
+                    <button class="content-type-btn">
+                        <span class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                                <line x1="12" y1="17" x2="12.01" y2="17" />
+                            </svg>
+                        </span>
+                        <span class="label uppercase tracking-widest text-[9px]">AI Quiz</span>
+                    </button>
+                    <button class="content-type-btn">
+                        <span class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+                                <polyline points="14.5 2 14.5 8 20 8" />
+                            </svg>
+                        </span>
+                        <span class="label uppercase tracking-widest text-[9px]">Resources</span>
+                    </button>
+                    <button class="content-type-btn">
+                        <span class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path
+                                    d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
+                            </svg>
+                        </span>
+                        <span class="label uppercase tracking-widest text-[9px]">Workshop</span>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>

@@ -1,0 +1,205 @@
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+}
+
+.page-header h1 {
+    font-size: 1.875rem;
+    letter-spacing: -0.025em;
+    color: var(--text-main);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--spacing-6);
+}
+
+.stat-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+}
+
+.stat-icon {
+    font-size: 1.5rem;
+    width: 48px;
+    height: 48px;
+    background-color: var(--bg-main);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.trend {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    background-color: #fee2e2;
+    color: #991b1b;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.trend.positive {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+.stat-info h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.stat-info p {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+}
+
+.tenants-card {
+    padding: 0;
+}
+
+.tenants-card .flex {
+    padding: var(--spacing-6);
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.data-table th {
+    padding: var(--spacing-4) var(--spacing-6);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--border-color);
+    background-color: var(--bg-main);
+}
+
+.data-table td {
+    padding: var(--spacing-4) var(--spacing-6);
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.875rem;
+    vertical-align: middle;
+}
+
+.tenant-name-cell {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+}
+
+.tenant-avatar {
+    width: 32px;
+    height: 32px;
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+}
+
+.badge-plan {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    padding: 2px 10px;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-size: 0.75rem;
+}
+
+.health-container {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+    min-width: 140px;
+}
+
+.health-track {
+    flex: 1;
+    height: 8px;
+    background-color: var(--border-color);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+}
+
+.health-fill {
+    height: 100%;
+    border-radius: var(--radius-full);
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.health-good {
+    background-color: #10b981;
+}
+
+.health-neutral {
+    background-color: #f59e0b;
+}
+
+.health-bad {
+    background-color: #ef4444;
+}
+
+.health-value {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-main);
+    width: 35px;
+    text-align: right;
+    display: inline-block;
+}
+
+.status-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+.status-indicator::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #9ca3af;
+}
+
+.status-indicator.active {
+    color: var(--secondary-color);
+}
+
+.status-indicator.active::before {
+    background-color: var(--secondary-color);
+}
+
+.icon-action {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    font-size: 1.125rem;
+    filter: grayscale(1);
+    opacity: 0.6;
+    transition: all 0.2s;
+}
+
+.icon-action:hover {
+    filter: grayscale(0);
+    opacity: 1;
+}

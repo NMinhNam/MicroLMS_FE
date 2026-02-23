@@ -1,0 +1,179 @@
+.plans-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+}
+
+.plans-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-6);
+    margin-top: var(--spacing-4);
+}
+
+.plan-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-8);
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-sm);
+}
+
+.plan-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-color);
+}
+
+.plan-card.popular {
+    border: 2px solid var(--primary-color);
+    transform: scale(1.02);
+}
+
+.plan-card.popular:hover {
+    transform: scale(1.02) translateY(-8px);
+}
+
+.popular-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--primary-color);
+    color: white;
+    padding: 4px 16px;
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+}
+
+.plan-header {
+    text-align: center;
+    margin-bottom: var(--spacing-6);
+}
+
+.price-container {
+    margin-top: var(--spacing-4);
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+}
+
+.currency {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.price {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: var(--text-main);
+    line-height: 1;
+}
+
+.period {
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.plan-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-4);
+    margin-bottom: var(--spacing-6);
+    padding: var(--spacing-4);
+    background: var(--bg-main);
+    border-radius: var(--radius-md);
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+}
+
+.stat-value {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.divider {
+    height: 1px;
+    background-color: var(--border-color);
+    margin-bottom: var(--spacing-6);
+}
+
+.feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--spacing-8) 0;
+    flex: 1;
+}
+
+.feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-3);
+    margin-bottom: var(--spacing-3);
+    font-size: 0.875rem;
+}
+
+.check {
+    color: var(--secondary-color);
+    font-weight: 700;
+}
+
+/* Revenue Chart Mockup */
+.mock-bar-chart {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    height: 200px;
+    padding: 0 var(--spacing-12);
+    border-bottom: 2px solid var(--border-color);
+}
+
+.chart-bar {
+    width: 60px;
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+    transition: all 0.5s ease;
+    cursor: pointer;
+}
+
+.chart-bar:hover {
+    filter: brightness(1.1);
+}
+
+.chart-bar.free {
+    background-color: var(--text-muted);
+}
+
+.chart-bar.pro {
+    background-color: var(--primary-color);
+}
+
+.chart-bar.enterprise {
+    background-color: var(--text-main);
+}
+
+.chart-labels span {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    width: 60px;
+    text-align: center;
+}

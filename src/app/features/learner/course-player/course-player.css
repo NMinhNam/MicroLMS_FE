@@ -1,0 +1,370 @@
+.player-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: var(--bg-main);
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: background 0.3s;
+}
+
+/* Premium Cinema Header */
+.player-header {
+    height: 72px;
+    background: #0f172a;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    z-index: 100;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.btn-back-vibe {
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-back-vibe:hover {
+    background: #ef4444;
+    border-color: #ef4444;
+    transform: rotate(90deg);
+}
+
+.lesson-breadcrumbs .module-chip {
+    font-size: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--primary-color);
+    background: rgba(99, 102, 241, 0.1);
+    padding: 2px 10px;
+    border-radius: 6px;
+    margin-bottom: 4px;
+    display: inline-block;
+}
+
+.lesson-major-title {
+    font-size: 1.25rem;
+    font-weight: 950;
+    letter-spacing: -0.02em;
+}
+
+.course-mastery {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-right: 24px;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mastery-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.mastery-text .label {
+    font-size: 9px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #94a3b8;
+}
+
+.mastery-text .value {
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.mastery-track {
+    width: 100px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.mastery-fill {
+    height: 100%;
+    background: #10b981;
+    border-radius: 4px;
+    box-shadow: 0 0 10px #10b981;
+}
+
+.btn-content-toggle {
+    background: var(--primary-color);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-content-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px -5px rgba(99, 102, 241, 0.4);
+}
+
+/* Stage Area */
+.player-stage {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.cinema-core {
+    flex: 1;
+    overflow-y: auto;
+    background: var(--bg-main);
+}
+
+.video-vault {
+    background: #000;
+    width: 100%;
+    max-height: 75vh;
+    aspect-ratio: 16 / 9;
+    box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.5);
+}
+
+/* Custom Plyr Overrides */
+:host ::ng-deep .plyr {
+    --plyr-color-main: #6366f1;
+    height: 100%;
+}
+
+/* Interaction Space */
+.lesson-interaction-space {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.interaction-tabs {
+    display: flex;
+    gap: 40px;
+    border-bottom: 2px solid var(--border-color);
+    padding: 0 40px;
+    margin-top: 20px;
+}
+
+.vibe-tab {
+    background: none;
+    border: none;
+    padding: 20px 0;
+    font-weight: 900;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.vibe-tab.active {
+    color: var(--primary-color);
+}
+
+.vibe-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--primary-color);
+    border-radius: 10px;
+}
+
+.btn-complete-vibe {
+    background: #10b981;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 14px;
+    font-weight: 900;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 10px 20px -5px rgba(16, 185, 129, 0.3);
+}
+
+.btn-complete-vibe:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 15px 30px -5px rgba(16, 185, 129, 0.4);
+}
+
+.pill {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: 4px 14px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--text-muted);
+}
+
+/* Curriculum Vault */
+.curriculum-vault {
+    width: 400px;
+    background: var(--bg-card);
+    border-left: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    box-shadow: -20px 0 50px rgba(0, 0, 0, 0.02);
+}
+
+.vault-header {
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.lesson-count {
+    font-size: 10px;
+    font-weight: 900;
+    color: var(--text-muted);
+    background: var(--bg-main);
+    padding: 4px 10px;
+    border-radius: 6px;
+}
+
+.section-title {
+    padding: 16px 30px;
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+    background: var(--bg-main);
+}
+
+.lesson-vibe-item {
+    padding: 24px 30px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-bottom: 1px solid var(--border-color);
+    position: relative;
+}
+
+.lesson-vibe-item:hover {
+    background: var(--bg-main);
+}
+
+.lesson-vibe-item.active {
+    background: rgba(99, 102, 241, 0.05);
+}
+
+.lesson-vibe-item.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    background: var(--primary-color);
+}
+
+.vibe-status {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lesson-vibe-item.active .vibe-status {
+    border-color: var(--primary-color);
+}
+
+.inner-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--border-color);
+    transition: all 0.3s;
+}
+
+.lesson-vibe-item.active .inner-dot {
+    background: var(--primary-color);
+    box-shadow: 0 0 10px var(--primary-color);
+}
+
+.vibe-title {
+    font-weight: 800;
+    font-size: 0.95rem;
+    color: var(--text-main);
+    display: block;
+    margin-bottom: 4px;
+}
+
+.vibe-meta {
+    display: flex;
+    gap: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+
+.vibe-check {
+    margin-left: auto;
+    width: 24px;
+    height: 24px;
+    background: #10b981;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 900;
+}
+
+/* Animations */
+@keyframes fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-up {
+    animation: fade-up 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}

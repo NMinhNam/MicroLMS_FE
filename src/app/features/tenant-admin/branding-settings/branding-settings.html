@@ -1,0 +1,190 @@
+<div class="branding-container animate-fade-in">
+    <!-- Page Header -->
+    <div class="page-header flex justify-between items-end mb-10">
+        <div>
+            <span class="text-xs font-bold text-primary uppercase tracking-widest">Workspace Customization</span>
+            <h1 class="text-4xl font-black tracking-tight mt-1">Branding & Identity</h1>
+            <p class="text-muted mt-2 max-w-lg">Shape the visual character of your academy. These changes reflect in
+                real-time across the student portal.</p>
+        </div>
+        <div class="flex gap-3">
+            <button class="btn btn-outline-premium" (click)="resetToDefaults()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                    class="mr-2">
+                    <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                    <path d="M3 3v5h5"></path>
+                </svg>
+                Reset Identity
+            </button>
+            <button class="btn btn-primary-premium shadow-xl shadow-primary/25" (click)="saveSettings()"
+                [disabled]="isSaving">
+                <span class="mr-2">
+                    <svg *ngIf="isSaving" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                        stroke-linejoin="round" class="animate-spin">
+                        <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
+                    </svg>
+                    <svg *ngIf="!isSaving" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                        <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                        <polyline points="7 3 7 8 15 8"></polyline>
+                    </svg>
+                </span>
+                {{ isSaving ? 'Syncing...' : 'Publish Branding' }}
+            </button>
+        </div>
+    </div>
+
+    <div class="settings-layout-grid">
+        <!-- Configuration Side -->
+        <div class="config-side">
+            <div class="card premium-card mb-6">
+                <div class="card-header-premium">
+                    <div class="icon-box">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m3 4.5 9 14.5 9-14.5Z" />
+                            <path d="M21 4.5h-18" />
+                        </svg>
+                    </div>
+                    <h3 class="font-bold">General Information</h3>
+                </div>
+
+                <div class="form-group-premium mb-6">
+                    <label>Platform Name</label>
+                    <div class="input-wrapper-premium">
+                        <input type="text" [(ngModel)]="config.siteName" placeholder="e.g. Masterclass Pro">
+                    </div>
+                    <p class="hint-text">Displayed in browser titles, email signatures, and invoices.</p>
+                </div>
+            </div>
+
+            <div class="card premium-card">
+                <div class="card-header-premium">
+                    <div class="icon-box">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="13.5" cy="6.5" r=".5" />
+                            <circle cx="17.5" cy="10.5" r=".5" />
+                            <circle cx="8.5" cy="7.5" r=".5" />
+                            <circle cx="6.5" cy="12.5" r=".5" />
+                            <path
+                                d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.707-.484 2.103-1.206.314-.573.448-1.106.332-1.533C14.12 18.158 14.517 17.151 15 17c1.5-.474 4-2 4-5 0-5.5-4.5-10-10-10Z" />
+                        </svg>
+                    </div>
+                    <h3 class="font-bold">Design Tokens</h3>
+                </div>
+
+                <div class="color-grid-premium mb-8">
+                    <div class="form-group-premium">
+                        <label>Primary Brand Color</label>
+                        <div class="color-control">
+                            <input type="color" [(ngModel)]="config.primaryColor" class="color-blob">
+                            <div class="color-input-text">
+                                <span class="hash">#</span>
+                                <input type="text" [value]="config.primaryColor.substring(1)" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group-premium">
+                        <label>Accent Secondary</label>
+                        <div class="color-control">
+                            <input type="color" [(ngModel)]="config.secondaryColor" class="color-blob accent">
+                            <div class="color-input-text">
+                                <span class="hash">#</span>
+                                <input type="text" [value]="config.secondaryColor.substring(1)" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group-premium">
+                    <div class="flex justify-between items-center mb-4">
+                        <label>Interface Roundness</label>
+                        <span class="value-chip">{{ config.borderRadius }}px</span>
+                    </div>
+                    <div class="range-container">
+                        <input type="range" min="0" max="32" [(ngModel)]="config.borderRadius" class="premium-range">
+                        <div class="range-labels">
+                            <span>Sharp</span>
+                            <span>Modern</span>
+                            <span>Soft</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Real-time Preview Side -->
+        <div class="preview-side">
+            <div class="preview-sticky">
+                <div class="preview-header-meta">
+                    <h3 class="text-sm font-bold tracking-widest text-muted uppercase">Interactive Live Preview</h3>
+                    <div class="live-blink"></div>
+                </div>
+
+                <div class="preview-device-frame shadow-2xl" [style.border-radius.px]="config.borderRadius * 1.5">
+                    <div class="preview-window-inner" [style.border-radius.px]="config.borderRadius">
+                        <!-- Mock Sidebar -->
+                        <div class="mock-sidebar-ui" [style.border-right-color]="config.primaryColor + '15'">
+                            <div class="mock-brand-space">
+                                <div class="mock-ui-logo"
+                                    [style.background]="'linear-gradient(135deg, ' + config.primaryColor + ', ' + config.secondaryColor + ')'"
+                                    [style.border-radius.px]="config.borderRadius / 2"></div>
+                                <div class="mock-ui-text-sm" [style.background]="'var(--primary-color)'"
+                                    style="opacity: 0.2"></div>
+                            </div>
+                            <div class="mock-ui-nav">
+                                <div class="mock-ui-item active" [style.background]="config.primaryColor + '10'"
+                                    [style.color]="config.primaryColor"
+                                    [style.border-radius.px]="config.borderRadius / 1.5">
+                                    <div class="dot" [style.background]="config.primaryColor"></div>
+                                    <div class="w-12 h-1 bg-current opacity-20 rounded"></div>
+                                </div>
+                                <div class="mock-ui-item"></div>
+                                <div class="mock-ui-item"></div>
+                            </div>
+                            <div class="mock-ui-divider"></div>
+                        </div>
+
+                        <!-- Mock Content -->
+                        <div class="mock-main-ui">
+                            <div class="mock-navbar-ui"
+                                [style.background]="'linear-gradient(to right, white, ' + config.primaryColor + '05)'">
+                                <div class="flex gap-2">
+                                    <div class="w-8 h-8 rounded-full bg-muted"></div>
+                                    <div class="w-24 h-4 bg-muted mt-2 rounded"></div>
+                                </div>
+                                <div class="w-8 h-8 rounded-full shadow-sm" [style.background]="config.secondaryColor">
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="w-32 h-6 bg-text-main rounded mb-4 opacity-10"></div>
+                                <div class="mock-ui-grid">
+                                    <div class="mock-ui-card" [style.border-radius.px]="config.borderRadius">
+                                        <div class="h-24 bg-muted rounded mb-2"></div>
+                                        <div class="w-full h-3 bg-muted rounded"></div>
+                                    </div>
+                                    <div class="mock-ui-card" [style.border-radius.px]="config.borderRadius">
+                                        <div class="h-24 bg-muted rounded mb-2"></div>
+                                        <div class="w-full h-3 bg-muted rounded"></div>
+                                    </div>
+                                </div>
+                                <button class="mock-ui-btn" [style.background]="config.primaryColor"
+                                    [style.border-radius.px]="config.borderRadius">
+                                    Primary Action
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="preview-caption">
+                    <p>Current configuration is applied globally to your tenant instance.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

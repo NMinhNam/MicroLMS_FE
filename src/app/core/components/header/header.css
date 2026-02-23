@@ -1,0 +1,71 @@
+.header {
+    height: 64px;
+    background-color: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    transition: background-color 0.3s, border-color 0.3s;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--spacing-8);
+    position: sticky;
+    top: 0;
+    z-index: 40;
+}
+
+.header-left .search-bar {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    background-color: var(--bg-main);
+    padding: var(--spacing-2) var(--spacing-4);
+    border-radius: var(--radius-md);
+    border: 1px solid transparent;
+    width: 320px;
+    transition: border-color 0.2s ease;
+}
+
+.header-left .search-bar:focus-within {
+    border-color: var(--primary-color);
+    background-color: var(--bg-card);
+}
+
+.search-bar input {
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 0.875rem;
+    width: 100%;
+    color: var(--text-main);
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+}
+
+.icon-btn {
+    background: transparent;
+    border: none;
+    font-size: 1.25rem;
+    cursor: pointer;
+    position: relative;
+    color: var(--text-muted);
+}
+
+.icon-btn .badge {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 8px;
+    height: 8px;
+    background-color: #ef4444;
+    border-radius: var(--radius-full);
+    border: 2px solid var(--bg-card);
+}
+
+.header-actions {
+    display: flex;
+    gap: var(--spacing-2);
+}
