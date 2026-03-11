@@ -9,20 +9,21 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    transition: background 0.3s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Premium Cinema Header */
 .player-header {
-    height: 72px;
-    background: #0f172a;
-    color: white;
+    height: var(--header-height);
+    background: var(--bg-sidebar);
+    color: var(--text-main);
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 32px;
     z-index: 100;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid var(--border-soft);
+    box-shadow: 0 4px 30px var(--glass-shadow);
 }
 
 .header-left {
@@ -34,12 +35,12 @@
 .btn-back-vibe {
     width: 44px;
     height: 44px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: white;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-soft);
+    color: var(--text-main);
     border-radius: 12px;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -53,13 +54,13 @@
 
 .lesson-breadcrumbs .module-chip {
     font-size: 10px;
-    font-weight: 900;
+    font-weight: 950;
     text-transform: uppercase;
     letter-spacing: 0.15em;
-    color: var(--primary-color);
-    background: rgba(99, 102, 241, 0.1);
-    padding: 2px 10px;
-    border-radius: 6px;
+    color: var(--primary);
+    background: var(--primary-glow);
+    padding: 4px 12px;
+    border-radius: 8px;
     margin-bottom: 4px;
     display: inline-block;
 }
@@ -106,15 +107,15 @@
 
 .mastery-fill {
     height: 100%;
-    background: #10b981;
+    background: var(--success);
     border-radius: 4px;
-    box-shadow: 0 0 10px #10b981;
+    box-shadow: 0 0 10px var(--success);
 }
 
 .btn-content-toggle {
-    background: var(--primary-color);
+    background: var(--primary);
     border: none;
-    color: white;
+    color: var(--text-inverse);
     padding: 10px 20px;
     border-radius: 12px;
     font-weight: 900;
@@ -122,12 +123,14 @@
     align-items: center;
     gap: 10px;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 14px var(--primary-glow);
 }
 
 .btn-content-toggle:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px -5px rgba(99, 102, 241, 0.4);
+    box-shadow: 0 10px 25px var(--primary-glow);
+    filter: brightness(1.1);
 }
 
 /* Stage Area */
@@ -149,6 +152,121 @@
     max-height: 75vh;
     aspect-ratio: 16 / 9;
     box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.video-vault.quiz-mode {
+    background: linear-gradient(135deg, #1e1b4b, #0f172a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Quiz Player Styles */
+.quiz-player {
+    width: 100%;
+    height: 100%;
+    color: white;
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-y: auto;
+}
+
+.quiz-icon-large {
+    font-size: 5rem;
+    margin-bottom: 2rem;
+    animation: floating 3s ease-in-out infinite;
+}
+
+.quiz-questions-view {
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+    text-align: left;
+}
+
+.questions-container {
+    max-height: 50vh;
+    overflow-y: auto;
+    padding-right: 20px;
+}
+
+.option-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 12px;
+}
+
+.option-card:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(8px);
+}
+
+.option-card.selected {
+    background: rgba(99, 102, 241, 0.2);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+}
+
+.option-check {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    position: relative;
+}
+
+.option-card.selected .option-check {
+    border-color: var(--primary-color);
+    background: var(--primary-color);
+}
+
+.option-card.selected .option-check::after {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    background: white;
+    border-radius: 50%;
+}
+
+.result-circle-vibe {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 8px solid #ef4444;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    box-shadow: 0 0 40px rgba(239, 68, 68, 0.2);
+}
+
+.result-circle-vibe.success {
+    border-color: #10b981;
+    box-shadow: 0 0 40px rgba(16, 185, 129, 0.2);
+}
+
+@keyframes floating {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
 }
 
 /* Custom Plyr Overrides */

@@ -25,184 +25,258 @@
         </div>
     </div>
 
-    <!-- Ultra-Premium Toolbar -->
-    <div class="toolbar-premium mb-8">
-        <div class="toolbar-inner group">
-            <!-- Search Hub -->
-            <div class="search-hub flex-1">
-                <div class="search-wrapper">
-                    <svg class="search-svg" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                    <input type="text" [(ngModel)]="searchQuery"
-                        placeholder="Search by name, email or role fingerprints..." class="search-input-vibe">
-                    <div class="search-shortcuts">
-                        <kbd>⌘</kbd>
-                        <kbd>K</kbd>
+    <!-- Section Tabs -->
+    <div class="flex gap-8 border-b border-border-subtle mb-8">
+        <button class="tab-btn-vibe" [class.active]="activeTab === 'directory'" (click)="activeTab = 'directory'">
+            Workspace Directory
+        </button>
+        <button class="tab-btn-vibe" [class.active]="activeTab === 'permissions'" (click)="activeTab = 'permissions'">
+            Role Permissions Matrix
+        </button>
+    </div>
+
+    <!-- View: Directory -->
+    <div *ngIf="activeTab === 'directory'" class="animate-fade-in">
+        <!-- Ultra-Premium Toolbar -->
+        <div class="toolbar-premium mb-8">
+            <div class="toolbar-inner group">
+                <!-- Search Hub -->
+                <div class="search-hub flex-1">
+                    <div class="search-wrapper">
+                        <svg class="search-svg" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                        <input type="text" [(ngModel)]="searchQuery"
+                            placeholder="Search by name, email or role fingerprints..." class="search-input-vibe">
+                        <div class="search-shortcuts">
+                            <kbd>⌘</kbd>
+                            <kbd>K</kbd>
+                        </div>
+                        <button class="clear-search" *ngIf="searchQuery" (click)="searchQuery = ''">✕</button>
                     </div>
-                    <button class="clear-search" *ngIf="searchQuery" (click)="searchQuery = ''">✕</button>
+                </div>
+
+                <div class="divider-v"></div>
+
+                <!-- Filter Cluster -->
+                <div class="filter-cluster flex items-center gap-4">
+                    <div class="premium-select-wrapper">
+                        <label>Identity</label>
+                        <ng-select [items]="identities" bindLabel="label" bindValue="value" [(ngModel)]="selectedRole"
+                            [clearable]="false" [searchable]="false" appendTo="body" class="premium-ng-select">
+                        </ng-select>
+                    </div>
+
+                    <div class="premium-select-wrapper">
+                        <label>Lifecycle</label>
+                        <ng-select [items]="lifecycles" bindLabel="label" bindValue="value" [(ngModel)]="selectedStatus"
+                            [clearable]="false" [searchable]="false" appendTo="body" class="premium-ng-select">
+                        </ng-select>
+                    </div>
+
+                    <button class="btn-config-vibe" title="Advanced Matrix Filters">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                        </svg>
+                    </button>
                 </div>
             </div>
 
-            <div class="divider-v"></div>
-
-            <!-- Filter Cluster -->
-            <div class="filter-cluster flex items-center gap-4">
-                <div class="premium-select-wrapper">
-                    <label>Identity</label>
-                    <ng-select [items]="identities" bindLabel="label" bindValue="value" [(ngModel)]="selectedRole"
-                        [clearable]="false" [searchable]="false" appendTo="body" class="premium-ng-select">
-                    </ng-select>
+            <!-- Quick Stats Strip -->
+            <div class="toolbar-footer">
+                <div class="stat-mini">
+                    <span class="label">Total Population:</span>
+                    <span class="value font-black">{{ users.length }}</span>
                 </div>
-
-                <div class="premium-select-wrapper">
-                    <label>Lifecycle</label>
-                    <ng-select [items]="lifecycles" bindLabel="label" bindValue="value" [(ngModel)]="selectedStatus"
-                        [clearable]="false" [searchable]="false" appendTo="body" class="premium-ng-select">
-                    </ng-select>
+                <div class="stat-mini">
+                    <span class="label">Filtered:</span>
+                    <span class="value text-primary font-black">{{ filteredUsers.length }}</span>
                 </div>
-
-                <button class="btn-config-vibe" title="Advanced Matrix Filters">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-                    </svg>
-                </button>
+                <div class="flex-1"></div>
+                <span class="sync-text">Last Synced: Just now</span>
             </div>
         </div>
 
-        <!-- Quick Stats Strip -->
-        <div class="toolbar-footer">
-            <div class="stat-mini">
-                <span class="label">Total Population:</span>
-                <span class="value font-black">{{ users.length }}</span>
+        <!-- Premium Users Table -->
+        <div class="table-container card p-0 border-none shadow-2xl overflow-hidden rounded-[24px]">
+            <table class="user-table-premium">
+                <thead>
+                    <tr>
+                        <th class="w-16 text-center">
+                            <label class="checkbox-vibe">
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                        </th>
+                        <th>WORKSPACE MEMBER</th>
+                        <th>IDENTITY ROLE</th>
+                        <th>JOURNEY START</th>
+                        <th>CURRENT PULSE</th>
+                        <th class="text-right px-8">ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of filteredUsers" class="group transition-all">
+                        <td class="text-center">
+                            <label class="checkbox-vibe">
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td>
+                            <div class="member-cell">
+                                <div class="avatar-hub">
+                                    <div class="member-avatar-vibe shadow-sm"
+                                        [style.background]="'linear-gradient(135deg, hsl(' + (user.id * 45) % 360 + ', 70%, 95%), white)'"
+                                        [style.color]="'hsl(' + (user.id * 45) % 360 + ', 70%, 40%)'">
+                                        {{ user.name.charAt(0) }}
+                                    </div>
+                                    <div class="pulse-indicator" [class.online]="user.status === 'Active'"></div>
+                                </div>
+                                <div class="member-meta">
+                                    <span class="name block font-black tracking-tight">{{ user.name }}</span>
+                                    <span class="email text-[11px] font-bold text-muted lowercase">{{ user.email
+                                        }}</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="role-badge-vibe" [class]="user.role.toLowerCase()">
+                                <svg *ngIf="user.role === 'Admin'" xmlns="http://www.w3.org/2000/svg" width="12"
+                                    height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                                    stroke-linecap="round" stroke-linejoin="round" class="mr-1">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                </svg>
+                                <svg *ngIf="user.role !== 'Admin'" xmlns="http://www.w3.org/2000/svg" width="12"
+                                    height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                                    stroke-linecap="round" stroke-linejoin="round" class="mr-1">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                </svg>
+                                {{ user.role }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="date-cell-vibe">
+                                <span class="date">{{ user.joined | date:'MMM dd, yyyy' }}</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="status-badge-vibe" [class]="user.status.toLowerCase()">
+                                {{ user.status }}
+                            </div>
+                        </td>
+                        <td class="text-right px-8">
+                            <div
+                                class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-all translate-x-4 group-hover:translate-x-0">
+                                <button class="action-btn-vibe edit" title="Modify Identity">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                    </svg>
+                                </button>
+                                <button class="action-btn-vibe toggle" (click)="toggleUserStatus(user)"
+                                    [title]="user.status === 'Active' ? 'Suspend Node' : 'Initialize Node'">
+                                    <svg *ngIf="user.status === 'Active'" xmlns="http://www.w3.org/2000/svg"
+                                        class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                    </svg>
+                                    <svg *ngIf="user.status !== 'Active'" xmlns="http://www.w3.org/2000/svg"
+                                        class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
+                                    </svg>
+                                </button>
+                                <button class="action-btn-vibe delete" (click)="deleteUser(user)"
+                                    title="Terminate Member">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Pagination Simulator -->
+            <div class="pagination-footer flex justify-between items-center px-8 py-5 bg-card border-t border-color">
+                <span class="text-[10px] font-black text-muted uppercase tracking-widest">Page 1 of 5</span>
+                <div class="pagination-btns flex gap-1">
+                    <button class="p-btn active">1</button>
+                    <button class="p-btn">2</button>
+                    <button class="p-btn">3</button>
+                    <span class="px-2 text-slate-300">...</span>
+                    <button class="p-btn">12</button>
+                </div>
             </div>
-            <div class="stat-mini">
-                <span class="label">Filtered:</span>
-                <span class="value text-primary font-black">{{ filteredUsers.length }}</span>
-            </div>
-            <div class="flex-1"></div>
-            <span class="sync-text">Last Synced: Just now</span>
         </div>
     </div>
 
-    <!-- Premium Users Table -->
-    <div class="table-container card p-0 border-none shadow-2xl overflow-hidden rounded-[24px]">
-        <table class="user-table-premium">
-            <thead>
-                <tr>
-                    <th class="w-16 text-center">
-                        <label class="checkbox-vibe">
-                            <input type="checkbox">
-                            <span class="checkmark"></span>
-                        </label>
-                    </th>
-                    <th>WORKSPACE MEMBER</th>
-                    <th>IDENTITY ROLE</th>
-                    <th>JOURNEY START</th>
-                    <th>CURRENT PULSE</th>
-                    <th class="text-right px-8">ACTIONS</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let user of filteredUsers" class="group transition-all">
-                    <td class="text-center">
-                        <label class="checkbox-vibe">
-                            <input type="checkbox">
-                            <span class="checkmark"></span>
-                        </label>
-                    </td>
-                    <td>
-                        <div class="member-cell">
-                            <div class="avatar-hub">
-                                <div class="member-avatar-vibe shadow-sm"
-                                    [style.background]="'linear-gradient(135deg, hsl(' + (user.id * 45) % 360 + ', 70%, 95%), white)'"
-                                    [style.color]="'hsl(' + (user.id * 45) % 360 + ', 70%, 40%)'">
-                                    {{ user.name.charAt(0) }}
-                                </div>
-                                <div class="pulse-indicator" [class.online]="user.status === 'Active'"></div>
-                            </div>
-                            <div class="member-meta">
-                                <span class="name block font-black tracking-tight">{{ user.name }}</span>
-                                <span class="email text-[11px] font-bold text-muted lowercase">{{ user.email
-                                    }}</span>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="role-badge-vibe" [class]="user.role.toLowerCase()">
-                            <svg *ngIf="user.role === 'Admin'" xmlns="http://www.w3.org/2000/svg" width="12" height="12"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                                stroke-linecap="round" stroke-linejoin="round" class="mr-1">
-                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                            </svg>
-                            <svg *ngIf="user.role !== 'Admin'" xmlns="http://www.w3.org/2000/svg" width="12" height="12"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                                stroke-linecap="round" stroke-linejoin="round" class="mr-1">
-                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                <circle cx="12" cy="7" r="4"></circle>
-                            </svg>
-                            {{ user.role }}
-                        </div>
-                    </td>
-                    <td>
-                        <div class="date-cell-vibe">
-                            <span class="date">{{ user.joined | date:'MMM dd, yyyy' }}</span>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="status-badge-vibe" [class]="user.status.toLowerCase()">
-                            {{ user.status }}
-                        </div>
-                    </td>
-                    <td class="text-right px-8">
-                        <div
-                            class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-all translate-x-4 group-hover:translate-x-0">
-                            <button class="action-btn-vibe edit" title="Modify Identity">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
-                                    stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                                </svg>
-                            </button>
-                            <button class="action-btn-vibe toggle" (click)="toggleUserStatus(user)"
-                                [title]="user.status === 'Active' ? 'Suspend Node' : 'Initialize Node'">
-                                <svg *ngIf="user.status === 'Active'" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
-                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                                </svg>
-                                <svg *ngIf="user.status !== 'Active'" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
-                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
-                                </svg>
-                            </button>
-                            <button class="action-btn-vibe delete" (click)="deleteUser(user)" title="Terminate Member">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
-                                    stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                </svg>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <!-- View: Role Permissions Matrix -->
+    <div *ngIf="activeTab === 'permissions'" class="animate-fade-in">
+        <div class="card p-8">
+            <div class="matrix-header flex justify-between items-center mb-10">
+                <div>
+                    <h3 class="text-xl font-black">Role Permission Matrix</h3>
+                    <p class="text-xs text-muted font-bold uppercase tracking-widest mt-1">Configure global access
+                        authorizations</p>
+                </div>
+                <div class="flex gap-2">
+                    <button class="role-selector-btn" [class.active]="selectedRoleForPermissions === 'Admin'"
+                        (click)="selectedRoleForPermissions = 'Admin'">Admin</button>
+                    <button class="role-selector-btn" [class.active]="selectedRoleForPermissions === 'Instructor'"
+                        (click)="selectedRoleForPermissions = 'Instructor'">Instructor</button>
+                    <button class="role-selector-btn" [class.active]="selectedRoleForPermissions === 'Student'"
+                        (click)="selectedRoleForPermissions = 'Student'">Student</button>
+                </div>
+            </div>
 
-        <!-- Pagination Simulator -->
-        <div class="pagination-footer flex justify-between items-center px-8 py-5 bg-card border-t border-color">
-            <span class="text-[10px] font-black text-muted uppercase tracking-widest">Page 1 of 5</span>
-            <div class="pagination-btns flex gap-1">
-                <button class="p-btn active">1</button>
-                <button class="p-btn">2</button>
-                <button class="p-btn">3</button>
-                <span class="px-2 text-slate-300">...</span>
-                <button class="p-btn">12</button>
+            <div class="matrix-body">
+                <div class="permission-section mb-10" *ngFor="let sec of permissions">
+                    <h4 class="text-[10px] font-black text-primary uppercase tracking-[0.2em] mb-4">{{ sec.category }}
+                    </h4>
+                    <div class="permission-grid">
+                        <div class="permission-row flex justify-between items-center p-4 rounded-xl hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-100"
+                            *ngFor="let act of sec.actions">
+                            <div>
+                                <span class="block font-bold text-sm">{{ act.name }}</span>
+                                <span class="text-[10px] text-muted uppercase font-bold tracking-tight">System Action
+                                    ID:
+                                    {{ act.id }}</span>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <span class="text-[10px] font-black transition-all"
+                                    [class.text-emerald-500]="getPermissionStatus(act, selectedRoleForPermissions)"
+                                    [class.text-rose-400]="!getPermissionStatus(act, selectedRoleForPermissions)">
+                                    {{ getPermissionStatus(act, selectedRoleForPermissions) ? 'AUTHORIZED' :
+                                    'RESTRICTED' }}
+                                </span>
+                                <label class="switch-vibe">
+                                    <input type="checkbox"
+                                        [checked]="getPermissionStatus(act, selectedRoleForPermissions)"
+                                        (change)="togglePermission(act, selectedRoleForPermissions)">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-end mt-12 pt-8 border-t border-color">
+                <button class="btn-config-vibe bg-slate-100 px-6 font-black text-xs h-12">Export Policy (.JSON)</button>
+                <div class="flex-1"></div>
+                <button class="btn btn-primary-premium shadow-xl shadow-primary/20 px-10 h-12">Commit Security
+                    Policy</button>
             </div>
         </div>
     </div>

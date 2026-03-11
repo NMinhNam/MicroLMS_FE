@@ -27,7 +27,9 @@ export class CourseBuilder {
   course = {
     title: 'Advanced Angular Architecture',
     description: 'Master the scale of modern frontend applications.',
-    status: 'Draft'
+    status: 'Draft',
+    category: 'Development',
+    price: 199
   };
 
   // Structured curriculum data
@@ -52,6 +54,53 @@ export class CourseBuilder {
       ]
     }
   ];
+
+  // UI States
+  showUploadModal = false;
+  uploadProgress = 0;
+  isUploading = false;
+  selectedLesson: any = null;
+
+  /**
+   * Selects a lesson for editing
+   */
+  selectLesson(lesson: any) {
+    this.selectedLesson = lesson;
+  }
+
+  /**
+   * Toggles upload modal
+   */
+  toggleUploadModal(show: boolean) {
+    this.showUploadModal = show;
+    if (!show) {
+      this.uploadProgress = 0;
+      this.isUploading = false;
+    }
+  }
+
+  /**
+   * Simulates file upload process
+   */
+  simulateUpload() {
+    this.isUploading = true;
+    this.uploadProgress = 0;
+    const interval = setInterval(() => {
+      this.uploadProgress += 10;
+      if (this.uploadProgress >= 100) {
+        clearInterval(interval);
+        this.isUploading = false;
+        Swal.fire({
+          title: 'Resource Ready!',
+          text: 'The multimedia file has been processed and linked to the lesson.',
+          icon: 'success',
+          timer: 2000,
+          showConfirmButton: false
+        });
+        setTimeout(() => this.toggleUploadModal(false), 2000);
+      }
+    }, 200);
+  }
 
   /**
    * Toggles module accordion

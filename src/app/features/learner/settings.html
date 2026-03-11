@@ -1,0 +1,123 @@
+<div class="settings-container animate-fade-in">
+    <div class="settings-header mb-10">
+        <h1 class="text-3xl font-black tracking-tight">System Settings</h1>
+        <p class="text-muted">Manage your identity and security protocols across the platform.</p>
+    </div>
+
+    <div class="settings-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="settings-sidebar">
+            <nav class="settings-nav">
+                <button class="nav-item" [class.active]="activeTab === 'profile'" (click)="activeTab = 'profile'">
+                    <span class="icon">👤</span>
+                    <span class="label">Profile Identity</span>
+                </button>
+                <button class="nav-item" [class.active]="activeTab === 'security'" (click)="activeTab = 'security'">
+                    <span class="icon">🔒</span>
+                    <span class="label">Security & Access</span>
+                </button>
+                <button class="nav-item" [class.active]="activeTab === 'notifications'"
+                    (click)="activeTab = 'notifications'">
+                    <span class="icon">🔔</span>
+                    <span class="label">Notifications</span>
+                </button>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="settings-main">
+            <!-- Profile Identity Tab -->
+            <div class="tab-content" *ngIf="activeTab === 'profile'">
+                <div class="section-card card scale-up">
+                    <h3 class="font-black text-xl mb-6">Profile Identity</h3>
+
+                    <div class="avatar-manager mb-8">
+                        <div class="avatar-large">{{ user.avatar }}</div>
+                        <div class="avatar-actions">
+                            <button class="btn btn-primary-premium btn-sm">Upload New Glyph</button>
+                            <p class="text-[10px] text-muted mt-2 uppercase font-bold">Recommended: 400x400 SVG or PNG
+                            </p>
+                        </div>
+                    </div>
+
+                    <form (ngSubmit)="saveProfile()">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Display Name</label>
+                                <input type="text" [(ngModel)]="user.name" name="name" class="vibe-input"
+                                    placeholder="Full Name">
+                            </div>
+                            <div class="form-group">
+                                <label>Workspace Email</label>
+                                <input type="email" [(ngModel)]="user.email" name="email" class="vibe-input"
+                                    placeholder="name@company.com">
+                            </div>
+                        </div>
+
+                        <div class="form-group mt-4">
+                            <label>Professional Bio</label>
+                            <textarea [(ngModel)]="user.bio" name="bio" class="vibe-input" rows="4"></textarea>
+                        </div>
+
+                        <div class="flex justify-end mt-8">
+                            <button type="submit" class="btn btn-primary-premium shadow-xl shadow-primary/20"
+                                [disabled]="isLoading">
+                                <span *ngIf="!isLoading">Synchronize Profile</span>
+                                <span *ngIf="isLoading" class="loader"></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Security & Access Tab -->
+            <div class="tab-content" *ngIf="activeTab === 'security'">
+                <div class="section-card card scale-up">
+                    <h3 class="font-black text-xl mb-6">Credential Management</h3>
+
+                    <p class="text-xs text-muted mb-8 leading-relaxed">Ensure your workspace remains secure by rotating
+                        your access credentials periodically. Use a combination of symbols and entropy.</p>
+
+                    <form (ngSubmit)="updatePassword()">
+                        <div class="form-group mb-6">
+                            <label>Current Credentials</label>
+                            <input type="password" [(ngModel)]="security.currentPassword" name="current"
+                                class="vibe-input" placeholder="••••••••">
+                        </div>
+
+                        <div class="divider mb-6"></div>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>New Vault Password</label>
+                                <input type="password" [(ngModel)]="security.newPassword" name="new" class="vibe-input"
+                                    placeholder="••••••••">
+                            </div>
+                            <div class="form-group">
+                                <label>Confirm New Password</label>
+                                <input type="password" [(ngModel)]="security.confirmPassword" name="confirm"
+                                    class="vibe-input" placeholder="••••••••">
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end mt-10">
+                            <button type="submit" class="btn btn-primary-premium" [disabled]="isLoading">
+                                <span *ngIf="!isLoading">Rotate Credentials</span>
+                                <span *ngIf="isLoading" class="loader"></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Placeholder for Notifications -->
+            <div class="tab-content" *ngIf="activeTab === 'notifications'">
+                <div class="section-card card opacity-50 flex flex-col items-center justify-center py-20">
+                    <span class="text-4xl mb-4">🔔</span>
+                    <h3 class="font-black text-xl">Communication Streams</h3>
+                    <p class="text-muted">Notification preferences are currently being calibrated.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>

@@ -1,0 +1,90 @@
+<div class="login-page">
+    <div class="login-visual">
+        <div class="visual-content">
+            <div class="floating-logo">▲</div>
+            <h1>The Architect of Future Learning</h1>
+            <p>Join the elite network of educators and learners scaling knowledge globally.</p>
+        </div>
+        <div class="gradient-overlay"></div>
+    </div>
+
+    <div class="login-form-container">
+        <div class="form-card animate-fade-in">
+            <div class="brand">
+                <span class="logo-text">MicroLMS</span>
+            </div>
+
+            <div class="header">
+                <h2>Create Your Workspace</h2>
+                <p>Start your journey into high-performance education</p>
+            </div>
+
+            <form (ngSubmit)="register()" #registerForm="ngForm">
+                <!-- Full Name -->
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">👤</span>
+                        <input type="text" name="fullName" [(ngModel)]="user.fullName" placeholder="John Wick" required>
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                    <label>Workspace Email</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">✉️</span>
+                        <input type="email" name="email" [(ngModel)]="user.email" placeholder="name@company.com"
+                            required>
+                    </div>
+                </div>
+
+                <!-- Role Selection -->
+                <div class="form-group">
+                    <label>Your Objective</label>
+                    <div class="role-grid mb-4">
+                        <div class="role-option" [class.selected]="user.role === 'Learner'"
+                            (click)="user.role = 'Learner'">
+                            <span class="role-icon">📚</span>
+                            <span class="role-label">I'm a Student</span>
+                        </div>
+                        <div class="role-option" [class.selected]="user.role === 'Instructor'"
+                            (click)="user.role = 'Instructor'">
+                            <span class="role-icon">🎓</span>
+                            <span class="role-label">I'm a Teacher</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                    <label>Secure Password</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">🔒</span>
+                        <input type="password" name="password" [(ngModel)]="user.password" placeholder="••••••••"
+                            required>
+                    </div>
+                </div>
+
+                <div class="form-actions mb-6">
+                    <label class="checkbox-container">
+                        <input type="checkbox" required>
+                        <span class="checkmark"></span>
+                        <span class="text-xs">I agree to the <a href="#" class="text-primary">Master Service
+                                Agreement</a></span>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-login" [disabled]="isLoading || !registerForm.valid">
+                    <span *ngIf="!isLoading">Provision Account</span>
+                    <span *ngIf="isLoading" class="loader"></span>
+                </button>
+            </form>
+
+            <div class="footer mt-8 text-center">
+                <p class="text-xs text-muted">Already configured? <a routerLink="/login"
+                        class="text-primary font-bold">Sign In</a></p>
+            </div>
+        </div>
+    </div>
+</div>

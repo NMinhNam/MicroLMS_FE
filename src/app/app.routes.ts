@@ -4,6 +4,7 @@ import { authGuard } from './core/guards/auth.guard';
 
 // Auth Components
 import { Login } from './features/auth/login/login';
+import { Register } from './features/auth/register';
 
 // Super Admin Components
 import { Dashboard } from './features/super-admin/dashboard/dashboard';
@@ -14,16 +15,24 @@ import { SubscriptionPlans } from './features/super-admin/subscription-plans/sub
 import { BrandingSettings } from './features/tenant-admin/branding-settings/branding-settings';
 import { CourseBuilder } from './features/tenant-admin/course-builder/course-builder';
 import { UserManagement } from './features/tenant-admin/user-management/user-management';
+import { RevenueAnalytics } from './features/tenant-admin/revenue-analytics';
 
 // Learner Components
 import { LearningSpace } from './features/learner/learning-space/learning-space';
 import { CoursePlayer } from './features/learner/course-player/course-player';
 import { ProfileVibe } from './features/learner/profile-vibe/profile-vibe';
+import { Settings } from './features/learner/settings';
+import { CourseCatalog } from './features/learner/course-catalog';
+import { Checkout } from './features/learner/checkout';
 
 export const routes: Routes = [
     {
         path: 'login',
         component: Login
+    },
+    {
+        path: 'register',
+        component: Register
     },
     {
         path: '',
@@ -42,10 +51,14 @@ export const routes: Routes = [
             { path: 'tenant-admin/branding', component: BrandingSettings },
             { path: 'tenant-admin/builder', component: CourseBuilder },
             { path: 'tenant-admin/users', component: UserManagement },
+            { path: 'tenant-admin/revenue', component: RevenueAnalytics },
 
             // --- Learner Module ---
             { path: 'learner/space', component: LearningSpace },
+            { path: 'learner/catalog', component: CourseCatalog },
+            { path: 'learner/checkout', component: Checkout },
             { path: 'learner/profile', component: ProfileVibe },
+            { path: 'learner/settings', component: Settings },
         ]
     },
     // Course Player is a full-screen experience

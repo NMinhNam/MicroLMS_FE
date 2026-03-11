@@ -675,6 +675,111 @@
     animation: scale-up 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+/* Tabs Vibe */
+.tab-btn-vibe {
+    padding: 16px 8px;
+    background: transparent;
+    border: none;
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s;
+}
+
+.tab-btn-vibe:hover {
+    color: var(--primary-color);
+}
+
+.tab-btn-vibe.active {
+    color: var(--primary-color);
+}
+
+.tab-btn-vibe.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--primary-color);
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+}
+
+/* Role Selector Buttons */
+.role-selector-btn {
+    padding: 8px 20px;
+    background: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.role-selector-btn:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.role-selector-btn.active {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+    box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
+}
+
+/* Switch Vibe */
+.switch-vibe {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 22px;
+}
+
+.switch-vibe input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #e2e8f0;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked+.slider {
+    background-color: #10b981;
+}
+
+input:checked+.slider:before {
+    transform: translateX(18px);
+}
+
 /* Responsive adjustments */
 @media (max-width: 1200px) {
     .toolbar-inner {

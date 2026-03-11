@@ -46,6 +46,44 @@
                 {{ course.status === 'Published' ? 'Course is Live' : 'Go Live Now' }}
             </button>
         </div>
+
+        <div
+            class="settings-bar-premium mb-10 flex gap-10 items-center p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
+            <div class="setting-item flex flex-col gap-1">
+                <span class="text-[10px] font-black uppercase text-muted tracking-widest">Knowledge Pathway</span>
+                <div class="select-vibe">
+                    <select [(ngModel)]="course.category">
+                        <option value="Development">Full Stack Development</option>
+                        <option value="Design">UI/UX Masterclass</option>
+                        <option value="Business">Entrepreneurship</option>
+                        <option value="Marketing">Growth Engineering</option>
+                    </select>
+                    <div class="arrow"></div>
+                </div>
+            </div>
+            <div class="h-10 w-[1px] bg-slate-100"></div>
+            <div class="setting-item flex flex-col gap-1">
+                <span class="text-[10px] font-black uppercase text-muted tracking-widest">Financial Matrix</span>
+                <div class="price-input-vibe">
+                    <span class="curr">$</span>
+                    <input type="number" [(ngModel)]="course.price">
+                </div>
+            </div>
+            <div class="ml-auto flex items-center gap-4">
+                <div class="flex flex-col items-end">
+                    <span class="text-[10px] font-black uppercase text-emerald-500 tracking-widest">Cloud
+                        Auto-Sync</span>
+                    <span class="text-[10px] text-muted font-bold">Matrix Status: Protected</span>
+                </div>
+                <div class="cloud-icon text-emerald-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M17.5 19c.7 0 1.2-.2 1.7-.5m-1.7 1.4c-.7 0-1.2-.2-1.7-.5M5 19h14a4 4 0 1 0-4-8.58A8.5 8.5 0 1 0 5 19Z" />
+                    </svg>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="builder-layout">
@@ -96,7 +134,8 @@
                     </div>
 
                     <div class="lesson-list-premium" *ngIf="module.isOpen">
-                        <div class="lesson-item-premium" *ngFor="let lesson of module.lessons; let li = index">
+                        <div class="lesson-item-premium" *ngFor="let lesson of module.lessons; let li = index"
+                            [class.selected]="selectedLesson === lesson" (click)="selectLesson(lesson)">
                             <div class="flex items-center gap-3 flex-1 overflow-hidden">
                                 <div class="lesson-icon-box">
                                     <ng-container [ngSwitch]="lesson.type">
@@ -128,13 +167,14 @@
                                         </svg>
                                     </ng-container>
                                 </div>
-                                <input type="text" [(ngModel)]="lesson.title" class="lesson-title-edit text-xs">
+                                <input type="text" [(ngModel)]="lesson.title" (click)="$event.stopPropagation()"
+                                    class="lesson-title-edit text-xs">
                             </div>
                             <div class="flex items-center gap-3">
                                 <span class="text-[10px] font-black text-muted uppercase">{{ lesson.duration
                                     }}</span>
                                 <button class="icon-btn-rounded !bg-transparent text-muted hover:text-red-500"
-                                    (click)="deleteLesson(module, li)">
+                                    (click)="deleteLesson(module, li); $event.stopPropagation()">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
                                         stroke-linejoin="round">
@@ -154,9 +194,10 @@
             </div>
         </aside>
 
-        <!-- Main Content Editor Placeholder -->
-        <main class="content-editor-premium">
-            <div class="text-center">
+        <!-- Main Content Editor -->
+        <main class="content-editor-premium" [class.editing]="selectedLesson">
+            <!-- Empty State -->
+            <div class="text-center" *ngIf="!selectedLesson">
                 <div class="empty-editor-vibe mb-8 flex justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
@@ -171,53 +212,108 @@
                     learning experience. Deploy interactive components below.</p>
 
                 <div class="flex gap-4 justify-center">
-                    <button class="content-type-btn">
-                        <span class="icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
-                                <path d="m15 8-5 4 5 4V8z" />
-                            </svg>
-                        </span>
+                    <button class="content-type-btn" (click)="addLesson(modules[0])">
+                        <span class="icon">📽️</span>
                         <span class="label uppercase tracking-widest text-[9px]">HD Video</span>
                     </button>
                     <button class="content-type-btn">
-                        <span class="icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10" />
-                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
-                                <line x1="12" y1="17" x2="12.01" y2="17" />
-                            </svg>
-                        </span>
+                        <span class="icon">❓</span>
                         <span class="label uppercase tracking-widest text-[9px]">AI Quiz</span>
                     </button>
                     <button class="content-type-btn">
-                        <span class="icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
-                                <polyline points="14.5 2 14.5 8 20 8" />
-                            </svg>
-                        </span>
+                        <span class="icon">📄</span>
                         <span class="label uppercase tracking-widest text-[9px]">Resources</span>
-                    </button>
-                    <button class="content-type-btn">
-                        <span class="icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <path
-                                    d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
-                            </svg>
-                        </span>
-                        <span class="label uppercase tracking-widest text-[9px]">Workshop</span>
                     </button>
                 </div>
             </div>
+
+            <!-- Active Editor Mock -->
+            <div class="active-editor-view animate-fade-in" *ngIf="selectedLesson">
+                <div class="editor-header flex justify-between items-center mb-6">
+                    <div class="flex items-center gap-3">
+                        <div class="editor-type-icon {{selectedLesson.type}}">
+                            {{ getContentIcon(selectedLesson.type) }}
+                        </div>
+                        <div>
+                            <h3 class="font-black text-xl leading-tight">{{ selectedLesson.title }}</h3>
+                            <p class="text-[10px] text-muted uppercase font-black tracking-tighter">Content Delivery
+                                Node
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <button class="btn btn-outline-premium btn-sm" (click)="toggleUploadModal(true)">
+                            Update Media
+                        </button>
+                        <button class="btn btn-primary-premium btn-sm">Save Changes</button>
+                    </div>
+                </div>
+
+                <!-- Premium Rich Text Editor Mock -->
+                <div class="premium-editor-shell">
+                    <div class="editor-toolbar">
+                        <div class="toolbar-group">
+                            <button class="tb-btn active">B</button>
+                            <button class="tb-btn italic">I</button>
+                            <button class="tb-btn underline">U</button>
+                        </div>
+                        <div class="toolbar-divider"></div>
+                        <div class="toolbar-group">
+                            <button class="tb-btn align-left">≡</button>
+                            <button class="tb-btn align-center">≣</button>
+                        </div>
+                        <div class="toolbar-divider"></div>
+                        <div class="toolbar-group">
+                            <button class="tb-btn link">🔗</button>
+                            <button class="tb-btn image">🖼️</button>
+                            <button class="tb-btn code">〈〉</button>
+                        </div>
+                    </div>
+                    <div class="editor-content-area" contenteditable="true">
+                        <p>Welcome to <strong>{{ selectedLesson.title }}</strong>.</p>
+                        <p>Begin typing your lesson script or educational content here. Use the modular toolbar above to
+                            format your delivery.</p>
+                        <br>
+                        <div class="editor-placeholder-block">
+                            <span class="text-muted italic text-sm">💡 Tip: You can drag and drop images or videos
+                                directly into this architect.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
+    </div>
+</div>
+
+<!-- Resource Upload Modal -->
+<div class="modal-overlay animate-fade-in" *ngIf="showUploadModal">
+    <div class="modal-card animate-slide-up">
+        <div class="modal-header flex justify-between items-center mb-6">
+            <h3 class="font-black text-xl">Cloud Resource Provisioning</h3>
+            <button class="close-modal-btn" (click)="toggleUploadModal(false)">✕</button>
+        </div>
+
+        <div class="upload-zone" [class.uploading]="isUploading">
+            <div class="upload-content text-center" *ngIf="!isUploading">
+                <div class="upload-icon-vibe mb-4">☁️</div>
+                <h4 class="font-black mb-1">Push to Cloud</h4>
+                <p class="text-xs text-muted mb-6">Drag/Drop high-res video (MP4) or support documents (PDF/DOCX)</p>
+                <button class="btn btn-primary-premium w-full" (click)="simulateUpload()">Select Local Files</button>
+            </div>
+
+            <!-- Upload Progress -->
+            <div class="upload-progress-view" *ngIf="isUploading">
+                <div class="spinning-loader mb-6"></div>
+                <h4 class="font-black text-center mb-4">Synchronizing: {{ uploadProgress }}%</h4>
+                <div class="progress-track">
+                    <div class="progress-fill" [style.width.%]="uploadProgress"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer mt-8 pt-6 border-top border-border-subtle flex justify-end gap-3">
+            <button class="btn btn-outline" (click)="toggleUploadModal(false)">Cancel Request</button>
+            <button class="btn btn-primary" [disabled]="isUploading">Finalize Repository</button>
+        </div>
     </div>
 </div>

@@ -35,6 +35,13 @@ export class LearningSpace {
   constructor(private router: Router) { }
 
   /**
+   * Navigate to Course Catalog
+   */
+  goToCatalog() {
+    this.router.navigate(['/learner/catalog']);
+  }
+
+  /**
    * Opens the course player
    */
   openCourse(course: any) {

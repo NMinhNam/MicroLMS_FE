@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { ThemeService } from '../../services/theme.service';
 import Swal from 'sweetalert2';
@@ -11,10 +11,17 @@ import Swal from 'sweetalert2';
   styleUrl: './sidebar.css',
 })
 export class Sidebar {
+  @Input() isOpen = false;
+  @Output() close = new EventEmitter<void>();
+
   constructor(
     private router: Router,
     public theme: ThemeService
   ) { }
+
+  onClose() {
+    this.close.emit();
+  }
 
   /**
    * Mock logout function

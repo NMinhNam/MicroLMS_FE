@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Sidebar } from '../../components/sidebar/sidebar';
 import { Header } from '../../components/header/header';
 import { RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 /**
  * MainLayout Component (Core Layout)
@@ -16,9 +17,18 @@ import { RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-main-layout',
   standalone: true,
-  imports: [Sidebar, Header, RouterOutlet],
+  imports: [Sidebar, Header, RouterOutlet, CommonModule],
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.css'
 })
 export class MainLayout {
+  isSidebarOpen = false;
+
+  toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
+  }
+
+  closeSidebar() {
+    this.isSidebarOpen = false;
+  }
 }

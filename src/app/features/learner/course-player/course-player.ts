@@ -38,7 +38,8 @@ export class CoursePlayer implements AfterViewInit, OnDestroy {
       title: 'Phase 2: Advanced Logic',
       lessons: [
         { id: 201, title: 'State Management at Scale', duration: '24:10', completed: false, videoUrl: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4' },
-        { id: 202, title: 'Dependency Injection Deep Dive', duration: '15:30', completed: false, videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4' }
+        { id: 202, title: 'Dependency Injection Deep Dive', duration: '15:30', completed: false, videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4' },
+        { id: 203, title: 'Architecture Quiz', duration: '10 Qs', completed: false, type: 'quiz' }
       ]
     }
   ];
@@ -46,6 +47,28 @@ export class CoursePlayer implements AfterViewInit, OnDestroy {
   // UI State
   isSidebarOpen = true;
   activeTab = 'overview';
+  isQuizMode = false;
+  quizStarted = false;
+  quizFinished = false;
+  quizScore = 0;
+
+  // Mock Quiz Questions
+  quizQuestions = [
+    {
+      id: 1,
+      text: "Which architectural pattern is best suited for horizontal scaling?",
+      options: ["Monolithic", "Microservices", "Layered", "Mainframe-based"],
+      correct: 1,
+      selected: null
+    },
+    {
+      id: 2,
+      text: "What does 'Stateless' mean in the context of backend services?",
+      options: ["No data is stored in the database", "Every request must contain all info needed to process it", "Sessions are stored in server memory", "The server is unresponsive"],
+      correct: 1,
+      selected: null
+    }
+  ];
 
   constructor(private router: Router) { }
 
@@ -85,13 +108,17 @@ export class CoursePlayer implements AfterViewInit, OnDestroy {
   }
 
   selectLesson(lesson: any) {
+    this.isQuizMode = lesson.type === 'quiz';
+    this.quizStarted = false;
+    this.quizFinished = false;
+
     this.currentLesson = {
       ...lesson,
       module: lesson.id < 200 ? 'Foundations' : 'Advanced Logic',
-      type: 'video'
+      type: lesson.type || 'video'
     };
 
-    if (this.player) {
+    if (this.player && !this.isQuizMode) {
       this.player.source = {
         type: 'video',
         sources: [{ src: lesson.videoUrl, type: 'video/mp4' }]
@@ -124,6 +151,34 @@ export class CoursePlayer implements AfterViewInit, OnDestroy {
         showConfirmButton: false
       });
     }
+  }
+
+  startQuiz() {
+    this.quizStarted = true;
+    this.quizFinished = false;
+    this.quizQuestions.forEach(q => q.selected = null);
+  }
+
+  selectOption(question: any, index: number) {
+    if (this.quizFinished) return;
+    question.selected = index;
+  }
+
+  submitQuiz() {
+    this.quizFinished = true;
+    const correctCount = this.quizQuestions.filter(q => q.selected === q.correct).length;
+    this.quizScore = Math.round((correctCount / this.quizQuestions.length) * 100);
+
+    if (this.quizScore >= 80) {
+      this.markAsComplete();
+    }
+
+    Swal.fire({
+      title: this.quizScore >= 80 ? 'Mastery Achieved!' : 'Keep Practicing',
+      text: `Your score: ${this.quizScore}%`,
+      icon: this.quizScore >= 80 ? 'success' : 'warning',
+      confirmButtonColor: '#6366f1'
+    });
   }
 
   private findLessonById(id: number) {

@@ -1,0 +1,80 @@
+<div class="catalog-container animate-fade-in">
+    <div class="catalog-header mb-12">
+        <div class="header-main">
+            <h1 class="text-4xl font-black tracking-tight mb-2">Knowledge Frontier</h1>
+            <p class="text-muted font-medium">Explore premium curricula designed by world-class architects.</p>
+        </div>
+
+        <div class="catalog-toolbar mt-8">
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" [(ngModel)]="searchQuery" (ngModelChange)="applyFilters()"
+                    placeholder="Search by topic, architect, or keywords...">
+            </div>
+
+            <div class="filters-row mt-4 flex gap-4">
+                <div class="filter-group">
+                    <label>Domain</label>
+                    <select [(ngModel)]="selectedCategory" (change)="applyFilters()">
+                        <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Entropy Level</label>
+                    <select [(ngModel)]="selectedLevel" (change)="applyFilters()">
+                        <option *ngFor="let lvl of levels" [value]="lvl">{{ lvl }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="catalog-results">
+        <div class="results-header mb-6 flex justify-between items-center">
+            <span class="text-[10px] font-black uppercase tracking-widest text-muted">Discovering {{
+                filteredCourses.length }} Pathways</span>
+            <div class="view-toggles">
+                <button class="toggle-btn active">Grid</button>
+                <button class="toggle-btn">List</button>
+            </div>
+        </div>
+
+        <div class="courses-grid" *ngIf="filteredCourses.length > 0; else noResults">
+            <div class="course-card-vibe animate-scale-up" *ngFor="let course of filteredCourses">
+                <div class="card-visual"
+                    [style.background]="'linear-gradient(135deg, ' + course.color + '22, ' + course.color + '08)'">
+                    <div class="visual-icon" [style.color]="course.color">{{ course.image }}</div>
+                    <div class="card-tag">{{ course.category }}</div>
+                </div>
+
+                <div class="card-content">
+                    <div class="card-pills flex gap-2 mb-3">
+                        <span class="pill level">{{ course.level }}</span>
+                        <span class="pill rating">★ {{ course.rating }}</span>
+                    </div>
+
+                    <h3 class="course-title">{{ course.title }}</h3>
+                    <p class="instructor-name">by {{ course.instructor }}</p>
+
+                    <div class="card-footer mt-6 pt-4 border-t border-color flex justify-between items-center">
+                        <div class="price-area">
+                            <span class="currency">$</span>
+                            <span class="amount">{{ course.price }}</span>
+                        </div>
+                        <button class="enroll-btn-vibe" (click)="enroll(course)">Proceed</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ng-template #noResults>
+            <div class="no-results-vibe py-20 text-center">
+                <span class="text-4xl mb-4 block">🔍</span>
+                <h3 class="text-xl font-black">No pathways found</h3>
+                <p class="text-muted mt-2">Adjust your filters or try a different search query.</p>
+                <button class="mt-6 text-primary font-bold underline" (click)="searchQuery = ''; applyFilters()">Reset
+                    All Matrix Filters</button>
+            </div>
+        </ng-template>
+    </div>
+</div>

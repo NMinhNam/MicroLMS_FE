@@ -12,6 +12,9 @@ import Swal from 'sweetalert2';
   styleUrl: './user-management.css',
 })
 export class UserManagement {
+  // Tab State
+  activeTab: 'directory' | 'permissions' = 'directory';
+
   // Modal state
   showInviteModal = false;
   isInviting = false;
@@ -50,6 +53,54 @@ export class UserManagement {
     { label: 'Dormant', value: 'Inactive' },
     { label: 'Flagged', value: 'Warning' }
   ];
+
+  // Role Permissions Mock Data
+  selectedRoleForPermissions = 'Instructor';
+  permissions = [
+    {
+      category: 'Course Control', actions: [
+        { id: 'view_course', name: 'View Courses', student: true, instructor: true, admin: true },
+        { id: 'create_course', name: 'Create/Edit Courses', student: false, instructor: true, admin: true },
+        { id: 'delete_course', name: 'Delete Courses', student: false, instructor: false, admin: true }
+      ]
+    },
+    {
+      category: 'User Intel', actions: [
+        { id: 'view_users', name: 'View Directory', student: true, instructor: true, admin: true },
+        { id: 'invite_users', name: 'Invite Members', student: false, instructor: false, admin: true },
+        { id: 'manage_roles', name: 'Modify Roles', student: false, instructor: false, admin: true }
+      ]
+    },
+    {
+      category: 'Financials', actions: [
+        { id: 'view_revenue', name: 'View Revenue', student: false, instructor: true, admin: true },
+        { id: 'manage_plans', name: 'Modify Plans', student: false, instructor: false, admin: true }
+      ]
+    }
+  ];
+
+  /**
+   * Safe access for template
+   */
+  getPermissionStatus(action: any, role: string): boolean {
+    return (action as any)[role.toLowerCase()];
+  }
+
+  /**
+   * Toggles a permission state for mock
+   */
+  togglePermission(action: any, role: string) {
+    (action as any)[role.toLowerCase()] = !(action as any)[role.toLowerCase()];
+    Swal.fire({
+      title: 'Matrix Updated',
+      text: `Permission '${action.name}' for ${role} has been modified.`,
+      icon: 'success',
+      toast: true,
+      position: 'top-end',
+      timer: 1500,
+      showConfirmButton: false
+    });
+  }
 
   /**
    * Returns a subset of users based on current filters

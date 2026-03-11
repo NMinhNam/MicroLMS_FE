@@ -1,0 +1,82 @@
+<div class="revenue-container animate-fade-in">
+    <div class="revenue-header mb-12 flex justify-between items-end">
+        <div>
+            <h1 class="text-4xl font-black tracking-tight mb-2">Financial Intelligence</h1>
+            <p class="text-muted font-medium">Monitoring curriculum dividends and enrollment velocity.</p>
+        </div>
+        <button class="btn-export-vibe" (click)="exportData()">
+            CSV EXPORT
+        </button>
+    </div>
+
+    <!-- KPI Grid -->
+    <div class="kpi-grid mb-12">
+        <div class="kpi-card">
+            <span class="label">Gross Revenue</span>
+            <div class="value-row">
+                <span class="value">{{ totalRevenue | currency }}</span>
+                <span class="delta positive">+18%</span>
+            </div>
+            <div class="sparkline bg-primary/10"></div>
+        </div>
+        <div class="kpi-card">
+            <span class="label">Total Enrollments</span>
+            <div class="value-row">
+                <span class="value">{{ activeEnrollments }}</span>
+                <span class="delta positive">+5.2%</span>
+            </div>
+            <div class="sparkline bg-emerald-500/10"></div>
+        </div>
+        <div class="kpi-card">
+            <span class="label">Avg Placement Value</span>
+            <div class="value-row">
+                <span class="value">{{ avgOrderValue | currency }}</span>
+                <span class="delta neutral">~0%</span>
+            </div>
+            <div class="sparkline bg-slate-100"></div>
+        </div>
+    </div>
+
+    <div class="analytics-layout">
+        <!-- Top Performing Courses -->
+        <div class="courses-performance card p-8">
+            <h3 class="text-xs font-black uppercase tracking-widest text-muted mb-8">Curriculum Performance</h3>
+            <div class="perf-list">
+                <div class="perf-item mb-8" *ngFor="let course of courses">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="font-bold text-sm">{{ course.title }}</span>
+                        <span class="font-black text-sm">{{ course.revenue | currency }}</span>
+                    </div>
+                    <div class="progress-track-vibe h-[6px] bg-slate-100 rounded-full overflow-hidden">
+                        <div class="progress-fill h-full rounded-full transition-all duration-1000"
+                            [style.width.%]="(course.revenue / 20000) * 100" [style.background]="course.color"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Transactions -->
+        <div class="transactions-log card p-8">
+            <h3 class="text-xs font-black uppercase tracking-widest text-muted mb-8">Real-time Ledgers</h3>
+            <div class="txn-table">
+                <div class="txn-row flex items-center justify-between py-4 border-b border-slate-50 last:border-0"
+                    *ngFor="let txn of transactions">
+                    <div class="flex items-center gap-4">
+                        <div class="txn-icon" [class.success]="txn.status === 'Completed'"
+                            [class.failed]="txn.status === 'Failed'">
+                            {{ txn.status === 'Completed' ? '✓' : '!' }}
+                        </div>
+                        <div>
+                            <span class="block font-bold text-sm">{{ txn.user }}</span>
+                            <span class="text-[10px] text-muted font-black uppercase">{{ txn.id }}</span>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <span class="block font-black text-sm">{{ txn.amount | currency }}</span>
+                        <span class="text-[10px] text-muted font-bold">{{ txn.date }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

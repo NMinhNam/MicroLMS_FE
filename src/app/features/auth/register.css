@@ -1,18 +1,18 @@
+/* Inherit base styles from login or define specifically */
 .login-page {
     display: grid;
-    grid-template-columns: 1.2fr 1fr;
+    grid-template-columns: 1.2fr 1.3fr;
     height: 100vh;
     background: var(--bg-main);
 }
 
-/* Left Visual Side */
 .login-visual {
     position: relative;
     background: #020617;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: var(--spacing-12);
+    padding: 3rem;
     overflow: hidden;
 }
 
@@ -23,17 +23,16 @@
 }
 
 .floating-logo {
-    width: 64px;
-    height: 64px;
-    background: var(--primary);
-    border-radius: 18px;
+    width: 60px;
+    height: 60px;
+    background: var(--primary-color);
+    border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2.25rem;
+    font-size: 2rem;
     color: white;
-    margin-bottom: var(--spacing-8);
-    box-shadow: 0 12px 40px var(--primary-glow);
+    margin-bottom: 2rem;
 }
 
 .login-visual h1 {
@@ -41,7 +40,7 @@
     font-weight: 800;
     color: white;
     line-height: 1.1;
-    margin-bottom: var(--spacing-4);
+    margin-bottom: 1rem;
 }
 
 .login-visual p {
@@ -56,21 +55,21 @@
         radial-gradient(circle at bottom left, rgba(168, 85, 247, 0.1), transparent);
 }
 
-/* Right Form Side */
 .login-form-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: var(--spacing-12);
+    padding: 3rem;
+    overflow-y: auto;
 }
 
 .form-card {
     width: 100%;
-    max-width: 400px;
+    max-width: 450px;
 }
 
 .brand {
-    margin-bottom: var(--spacing-12);
+    margin-bottom: 2rem;
 }
 
 .logo-text {
@@ -88,11 +87,11 @@
 .header p {
     color: var(--text-muted);
     font-size: 0.875rem;
-    margin-bottom: var(--spacing-8);
+    margin-bottom: 2rem;
 }
 
 .form-group {
-    margin-bottom: var(--spacing-6);
+    margin-bottom: 1.25rem;
 }
 
 .form-group label {
@@ -115,7 +114,7 @@
     position: absolute;
     left: 16px;
     font-size: 1rem;
-    opacity: 0.5;
+    opacity: 0.6;
 }
 
 .input-wrapper input {
@@ -130,47 +129,69 @@
 }
 
 .input-wrapper input:focus {
-    background: var(--bg-card);
     border-color: var(--primary);
+    background: var(--bg-card);
     box-shadow: 0 0 0 4px var(--primary-glow);
     outline: none;
 }
 
-.btn-login {
-    width: 100%;
-    background: var(--primary);
-    color: var(--text-inverse);
-    padding: 1rem;
-    border: none;
-    border-radius: 12px;
-    font-weight: 800;
-    cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 8px 20px var(--primary-glow);
+/* Role Grid */
+.role-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
 }
 
-.btn-login:hover:not(:disabled) {
+.role-option {
+    padding: 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.role-option:hover {
+    border-color: var(--primary);
+    background: var(--bg-surface);
     transform: translateY(-2px);
-    filter: brightness(1.1);
-    box-shadow: 0 12px 30px rgba(99, 102, 241, 0.3);
+}
+
+.role-option.selected {
+    background: var(--primary-glow);
+    border-color: var(--primary);
+}
+
+.role-icon {
+    font-size: 1.5rem;
+}
+
+.role-label {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--text-main);
+}
+
+.btn-login {
+    width: 100%;
+    background: var(--primary-color);
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
 }
 
 .btn-login:disabled {
     opacity: 0.6;
-    cursor: not-allowed;
 }
 
-.error-msg {
-    color: #ef4444;
-    font-size: 0.75rem;
-    font-weight: 600;
-    background: #fef2f2;
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #fee2e2;
-}
-
-/* Loader */
 .loader {
     width: 20px;
     height: 20px;
@@ -188,11 +209,11 @@
 }
 
 @media (max-width: 1024px) {
-    .login-page {
-        grid-template-columns: 1fr;
-    }
-
     .login-visual {
         display: none;
+    }
+
+    .login-page {
+        grid-template-columns: 1fr;
     }
 }

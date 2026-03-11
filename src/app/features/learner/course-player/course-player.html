@@ -50,10 +50,74 @@
     <main class="player-stage">
         <!-- Cinema Screen Area -->
         <div class="cinema-core">
-            <div class="video-vault">
-                <video #videoPlayer playsinline controls [poster]="currentLesson.poster">
+            <div class="video-vault" [class.quiz-mode]="isQuizMode">
+                <!-- Video Player -->
+                <video *ngIf="!isQuizMode" #videoPlayer playsinline controls [poster]="currentLesson.poster">
                     <source [src]="currentLesson.videoUrl" type="video/mp4" />
                 </video>
+
+                <!-- Quiz Player -->
+                <div *ngIf="isQuizMode" class="quiz-player animate-fade-in">
+                    <!-- Start Screen -->
+                    <div class="quiz-intro text-center" *ngIf="!quizStarted && !quizFinished">
+                        <div class="quiz-icon-large">❓</div>
+                        <h2 class="font-black text-3xl mb-4">{{ currentLesson.title }}</h2>
+                        <p class="text-indigo-200 mb-8 max-w-md mx-auto">This validation check contains 10 performance
+                            metrics. You need 80% to achieve mastery.</p>
+                        <button class="btn btn-primary-premium btn-lg px-12" (click)="startQuiz()">Initiate
+                            Quiz</button>
+                    </div>
+
+                    <!-- Question View -->
+                    <div class="quiz-questions-view" *ngIf="quizStarted && !quizFinished">
+                        <div class="quiz-header-mini mb-10 flex justify-between items-end">
+                            <div>
+                                <span class="text-[10px] font-black uppercase text-indigo-400">Live Assessment</span>
+                                <h3 class="font-black text-2xl">Question Logic</h3>
+                            </div>
+                            <span class="text-xs font-bold text-muted">2 Questions Total</span>
+                        </div>
+
+                        <div class="questions-container custom-scrollbar">
+                            <div class="question-item mb-12" *ngFor="let q of quizQuestions; let i = index">
+                                <h4 class="font-bold text-lg mb-6"><span class="text-indigo-500 mr-2">0{{i+1}}.</span>
+                                    {{
+                                    q.text }}</h4>
+                                <div class="options-grid">
+                                    <div class="option-card" *ngFor="let opt of q.options; let oi = index"
+                                        [class.selected]="q.selected === oi" (click)="selectOption(q, oi)">
+                                        <div class="option-check"></div>
+                                        <span class="option-text font-medium">{{ opt }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="quiz-footer-actions mt-8 pt-6 border-t border-white/5 flex justify-end">
+                            <button class="btn btn-primary-premium" (click)="submitQuiz()">Validate Submissions</button>
+                        </div>
+                    </div>
+
+                    <!-- Result Screen -->
+                    <div class="quiz-results text-center" *ngIf="quizFinished">
+                        <div class="result-circle-vibe mb-8" [class.success]="quizScore >= 80">
+                            <span class="score-num font-black text-4xl">{{ quizScore }}%</span>
+                            <span class="score-label text-[10px] font-black block mt-1">MASTERY SCORE</span>
+                        </div>
+                        <h2 class="font-black text-3xl mb-4">{{ quizScore >= 80 ? 'Class Certified' : 'Review Required'
+                            }}</h2>
+                        <p class="text-indigo-200 mb-8 max-w-sm mx-auto">{{ quizScore >= 80 ? 'Excellent work athlete!
+                            You
+                            have mastered this architectural segment.' : 'You were close, but our standards require 80%
+                            to
+                            advance. Please review the module again.' }}</p>
+                        <div class="flex gap-4 justify-center">
+                            <button class="btn btn-outline-premium" (click)="startQuiz()">Re-attempt Node</button>
+                            <button class="btn btn-primary-premium" (click)="goBack()" *ngIf="quizScore >= 80">Back to
+                                Space</button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="lesson-interaction-space">

@@ -1,0 +1,157 @@
+<div class="checkout-container animate-fade-in">
+    <div class="checkout-layout">
+        <!-- Main Form Area -->
+        <main class="checkout-main">
+            <!-- Stepper Overlay -->
+            <div class="checkout-stepper mb-10">
+                <div class="step" [class.active]="step >= 1" [class.completed]="step > 1">
+                    <span class="num">1</span>
+                    <span class="label">Identity</span>
+                </div>
+                <div class="step-line"></div>
+                <div class="step" [class.active]="step >= 2" [class.completed]="step > 2">
+                    <span class="num">2</span>
+                    <span class="label">Vault Provisioning</span>
+                </div>
+                <div class="step-line"></div>
+                <div class="step" [class.active]="step >= 3">
+                    <span class="num">3</span>
+                    <span class="label">Synchronization</span>
+                </div>
+            </div>
+
+            <!-- Step 1: Billing -->
+            <div class="card p-10 scale-up" *ngIf="step === 1">
+                <h2 class="text-2xl font-black mb-8">Identity & Billing</h2>
+                <div class="form-grid">
+                    <div class="form-group col-span-2">
+                        <label>Full Name</label>
+                        <input type="text" [(ngModel)]="billing.fullName" class="vibe-input" placeholder="Full Name">
+                    </div>
+                    <div class="form-group col-span-2">
+                        <label>Billing Address</label>
+                        <input type="text" [(ngModel)]="billing.address" class="vibe-input" placeholder="123 Tech St">
+                    </div>
+                    <div class="form-group">
+                        <label>City</label>
+                        <input type="text" [(ngModel)]="billing.city" class="vibe-input" placeholder="San Francisco">
+                    </div>
+                    <div class="form-group">
+                        <label>Postal Code</label>
+                        <input type="text" [(ngModel)]="billing.zip" class="vibe-input" placeholder="94105">
+                    </div>
+                </div>
+                <div class="flex justify-end mt-12">
+                    <button class="btn btn-primary-premium px-12 h-14" (click)="nextStep()">Continue to Payment</button>
+                </div>
+            </div>
+
+            <!-- Step 2: Payment -->
+            <div class="card p-10 scale-up" *ngIf="step === 2">
+                <div class="flex justify-between items-center mb-10">
+                    <h2 class="text-2xl font-black">Authorized Payment Methods</h2>
+                    <button class="text-xs font-bold text-muted underline" (click)="prevStep()">Modify Billing</button>
+                </div>
+
+                <div class="payment-grid mb-10">
+                    <div class="payment-option" [class.selected]="paymentMethod === 'stripe'"
+                        (click)="paymentMethod = 'stripe'">
+                        <div class="flex justify-between w-full items-start">
+                            <span class="method-icon">💳</span>
+                            <div class="radio-vibe"></div>
+                        </div>
+                        <div class="method-label mt-4">
+                            <span class="block font-black text-sm">Credit Matrix</span>
+                            <span class="text-[10px] text-muted font-bold uppercase mt-1">Stripe Gateway</span>
+                        </div>
+                    </div>
+                    <div class="payment-option" [class.selected]="paymentMethod === 'paypal'"
+                        (click)="paymentMethod = 'paypal'">
+                        <div class="flex justify-between w-full items-start">
+                            <span class="method-icon">📦</span>
+                            <div class="radio-vibe"></div>
+                        </div>
+                        <div class="method-label mt-4">
+                            <span class="block font-black text-sm">PayPal Vault</span>
+                            <span class="text-[10px] text-muted font-bold uppercase mt-1">Secured Transfer</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stripe-mock-form p-6 bg-slate-50 rounded-2xl border border-slate-100 mb-10">
+                    <div class="form-group">
+                        <label>Secure Token Number</label>
+                        <input type="text" class="vibe-input" placeholder="4242 4242 4242 4242">
+                    </div>
+                    <div class="flex gap-4 mt-4">
+                        <div class="flex-1">
+                            <label>Expiry</label>
+                            <input type="text" class="vibe-input" placeholder="MM/YY">
+                        </div>
+                        <div class="flex-1">
+                            <label>CVC</label>
+                            <input type="password" class="vibe-input" placeholder="•••">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-end mt-4">
+                    <button class="btn btn-primary-premium w-full h-14 text-lg shadow-xl shadow-primary/20"
+                        (click)="processPayment()" [disabled]="isProcessing">
+                        <span *ngIf="!isProcessing">Authorize ${{ course.price + course.tax }}</span>
+                        <div class="loader" *ngIf="isProcessing"></div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 3: Success -->
+            <div class="card p-20 text-center scale-up" *ngIf="step === 3">
+                <div class="success-icon-vibe mb-8">✓</div>
+                <h2 class="text-3xl font-black mb-4">Ownership Synchronized</h2>
+                <p class="text-muted font-medium mb-12 max-w-sm mx-auto">Your curriculum has been provisioned and is
+                    ready for execution in your Learning Space.</p>
+                <button class="btn btn-primary-premium px-12" (click)="goToLearningSpace()">Launch Curriculum</button>
+            </div>
+        </main>
+
+        <!-- Summary Sidebar -->
+        <aside class="checkout-sidebar" *ngIf="step < 3">
+            <div class="card p-8 sticky top-10">
+                <h3 class="font-black text-xs uppercase tracking-widest text-muted mb-6">Manifest Summary</h3>
+
+                <div class="item-shroud p-4 bg-slate-50 rounded-2xl border border-slate-100 mb-8">
+                    <div class="flex gap-4">
+                        <div class="item-glyph text-2xl">⚛️</div>
+                        <div>
+                            <span class="block font-black text-sm">{{ course.title }}</span>
+                            <span class="text-[10px] text-muted font-bold uppercase">by {{ course.instructor }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="totals-area flex flex-col gap-3 mb-8">
+                    <div class="total-row flex justify-between">
+                        <span class="text-muted font-bold text-xs uppercase">Curriculum Fee</span>
+                        <span class="font-black text-sm">${{ course.price }}</span>
+                    </div>
+                    <div class="total-row flex justify-between">
+                        <span class="text-muted font-bold text-xs uppercase">Platform Tax (8%)</span>
+                        <span class="font-black text-sm">${{ course.tax }}</span>
+                    </div>
+                    <div class="divider h-[1px] bg-slate-100 my-2"></div>
+                    <div class="total-row flex justify-between items-end">
+                        <span class="font-black text-xs uppercase">Total Commitment</span>
+                        <span class="text-2xl font-black text-primary">${{ course.price + course.tax }}</span>
+                    </div>
+                </div>
+
+                <div
+                    class="security-seal p-4 rounded-xl bg-emerald-50 border border-emerald-100 flex gap-3 items-center">
+                    <span class="text-emerald-500 text-xl">🛡️</span>
+                    <span class="text-[10px] font-black text-emerald-800 leading-tight uppercase tracking-tight">256-Bit
+                        SHA Encryption Active</span>
+                </div>
+            </div>
+        </aside>
+    </div>
+</div>

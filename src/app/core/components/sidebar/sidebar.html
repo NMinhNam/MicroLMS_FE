@@ -1,4 +1,4 @@
-<div class="sidebar animate-slide-in">
+<div class="sidebar animate-slide-in" [class.mobile-open]="isOpen">
     <!-- Brand Logo -->
     <div class="logo-container">
         <div class="logo-wrapper">
@@ -8,6 +8,10 @@
             <span class="logo-text font-bold">MicroLMS</span>
             <span class="logo-tagline text-xs">Scale your academy</span>
         </div>
+        <!-- Mobile Close Button -->
+        <button class="mobile-close-btn" (click)="onClose()">
+            <span>✕</span>
+        </button>
     </div>
 
     <nav class="sidebar-nav">
@@ -43,6 +47,10 @@
                 <span class="icon">👥</span>
                 <span class="label">User Management</span>
             </a>
+            <a class="nav-item" routerLink="/tenant-admin/revenue" routerLinkActive="active">
+                <span class="icon">📊</span>
+                <span class="label">Revenue</span>
+            </a>
         </div>
 
         <!-- Section: Learner -->
@@ -52,6 +60,10 @@
                 <span class="icon">🏠</span>
                 <span class="label">My Learning</span>
             </a>
+            <a class="nav-item" routerLink="/learner/catalog" routerLinkActive="active">
+                <span class="icon">🧭</span>
+                <span class="label">Catalog</span>
+            </a>
             <a class="nav-item" routerLink="/learner/profile" routerLinkActive="active">
                 <span class="icon">✨</span>
                 <span class="label">Profile Vibe</span>
@@ -59,6 +71,10 @@
             <a class="nav-item" routerLink="/learner/player">
                 <span class="icon">📽️</span>
                 <span class="label">Open Player</span>
+            </a>
+            <a class="nav-item" routerLink="/learner/settings" routerLinkActive="active">
+                <span class="icon">⚙️</span>
+                <span class="label">Settings</span>
             </a>
         </div>
     </nav>
