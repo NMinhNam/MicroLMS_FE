@@ -64,7 +64,8 @@
 .section-title {
     font-size: 0.65rem;
     font-weight: 900;
-    color: var(--text-muted);
+    color: var(--text-main);
+    opacity: 0.6;
     padding-left: 1rem;
     margin-bottom: 1rem;
     letter-spacing: 0.15em;
@@ -88,7 +89,8 @@
 
 .nav-item:hover {
     background-color: var(--bg-surface);
-    color: var(--text-main);
+    color: var(--primary);
+    transform: translateX(4px);
 }
 
 .nav-item.active {

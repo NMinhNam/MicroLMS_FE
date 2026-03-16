@@ -72,7 +72,8 @@
 
 .btn-export-vibe {
     padding: 12px 24px;
-    background: var(--bg-main);
+    background: var(--primary-color, rgb(99, 102, 241));
+    color: #ffffff;
     border: 1px solid var(--border-color);
     border-radius: 12px;
     font-size: 10px;

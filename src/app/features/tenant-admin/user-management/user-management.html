@@ -61,7 +61,7 @@
                 <div class="divider-v"></div>
 
                 <!-- Filter Cluster -->
-                <div class="filter-cluster flex items-center gap-4">
+                <div class="filter-cluster flex items-end gap-4">
                     <div class="premium-select-wrapper">
                         <label>Identity</label>
                         <ng-select [items]="identities" bindLabel="label" bindValue="value" [(ngModel)]="selectedRole"
@@ -139,7 +139,7 @@
                                 </div>
                                 <div class="member-meta">
                                     <span class="name block font-black tracking-tight">{{ user.name }}</span>
-                                    <span class="email text-[11px] font-bold text-muted lowercase">{{ user.email
+                                    <span class="email text-[11px] font-bold text-slate-400 lowercase">{{ user.email
                                         }}</span>
                                 </div>
                             </div>
@@ -172,7 +172,7 @@
                         </td>
                         <td class="text-right px-8">
                             <div
-                                class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-all translate-x-4 group-hover:translate-x-0">
+                                class="flex justify-end gap-3 opacity-0 group-hover:opacity-100 transition-all translate-x-4 group-hover:translate-x-0">
                                 <button class="action-btn-vibe edit" title="Modify Identity">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">

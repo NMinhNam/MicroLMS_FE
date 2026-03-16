@@ -137,18 +137,19 @@
 }
 
 .section-header-vibe p {
-    color: var(--primary-color) !important;
+    color: var(--text-main) !important;
+    opacity: 0.7;
     font-size: 0.65rem !important;
     letter-spacing: 0.25em !important;
 }
 
 /* Catalog Button */
 .btn-catalog-premium {
-    background: var(--bg-card);
+    background: var(--primary-color);
     padding: 12px 24px;
     border-radius: 14px;
     border: 1px solid var(--border-color);
-    color: var(--primary-color);
+    color: #ffffff;
     font-weight: 800;
     font-size: 0.75rem;
     text-transform: uppercase;

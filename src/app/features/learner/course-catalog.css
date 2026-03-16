@@ -4,7 +4,7 @@
 }
 
 .catalog-header {
-    background: white;
+    background: var(--bg-card);
     padding: 40px;
     border-radius: 32px;
     border: 1px solid var(--border-color);
@@ -33,6 +33,11 @@
     font-weight: 600;
     color: var(--text-main);
     outline: none;
+}
+
+.search-box input::placeholder {
+    color: var(--text-muted);
+    opacity: 0.8;
 }
 
 .filter-group {
@@ -68,7 +73,7 @@
 }
 
 .course-card-vibe {
-    background: white;
+    background: var(--bg-card);
     border-radius: 24px;
     border: 1px solid var(--border-color);
     overflow: hidden;
@@ -78,7 +83,7 @@
 
 .course-card-vibe:hover {
     transform: translateY(-12px);
-    box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.3);
     border-color: var(--primary-color);
 }
 
@@ -165,6 +170,7 @@
 .enroll-btn-vibe {
     padding: 10px 24px;
     background: var(--bg-main);
+    color: var(--text-main);
     border: 1px solid var(--border-color);
     border-radius: 12px;
     font-weight: 800;
@@ -175,7 +181,7 @@
 
 .enroll-btn-vibe:hover {
     background: var(--primary-color);
-    color: white;
+    color: #ffffff;
     border-color: var(--primary-color);
     box-shadow: 0 10px 20px rgba(99, 102, 241, 0.2);
 }
